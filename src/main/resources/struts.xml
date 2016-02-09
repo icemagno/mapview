@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.maxSize" value="20971520" />
+	 
+	<package name="chart" extends="jfreechart-default" >
+	 	<interceptors> 
+			<interceptor name="autorizador" class="br.cefetrj.sagitarii.interceptor.ClientAccessInterceptor" />
+
+			<interceptor-stack name="seguranca">  
+				<interceptor-ref name="autorizador" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+			
+		</interceptors>
+
+		<global-results>
+			<result name="notLogged">/index.jsp</result> 
+		</global-results>
+		
+	</package> 
+	 
+	<package name="default" extends="struts-default">
+	
+	 	<interceptors> 
+			<interceptor name="autorizador" class="br.cefetrj.sagitarii.interceptor.ClientAccessInterceptor" />
+			
+			<interceptor-stack name="seguranca">  
+				<interceptor-ref name="fileUpload">
+				    <param name="maximumSize">268435456000000</param>
+				</interceptor-ref>			
+			
+				<interceptor-ref name="autorizador" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+	  
+		<global-results>
+			<result name="notLogged">/index.jsp</result> 
+		</global-results>
+	  
+	  
+	</package>
+	
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />	
+
+</struts>

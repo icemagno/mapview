@@ -1,2 +1,2 @@
-# mapview
-HLA Federation Map Viewer 
+# sagitarii2
+Sagitarii 2.0 HLA/RTI Based

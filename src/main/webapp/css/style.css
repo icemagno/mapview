@@ -1,0 +1,251 @@
+/*
+	Verde 		 : #109618;
+	Laranja 	 : #FF9900;
+	Azul		 : #537DB4;
+	Vermelho	 : #DC3912;
+	
+	Bordas Azuis : #0F499E
+	
+*/
+
+body {
+	padding: 0 0 20px; 
+	font-family: 'Lucida Grande','Lucida Sans Unicode','Geneva','Verdana',sans-serif;
+	color: black;
+	min-width: 900px;
+	background-color: #F3F3F3;
+	font-size: 12px;
+}
+
+#header {
+    padding-top : 15px;
+	vertical-align : middle;
+    text-align : left;
+	background-color : #537DB4;
+ 	border-top: 1px solid #0F499E;
+ 	border-bottom: 1px solid #0F499E;
+    height: 40px;
+	font-size : 20px;
+	color : white;
+	font-weight : bold;
+	margin-top : 10px;
+	margin-bottom : 5px;
+	font-family	: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+}
+
+
+.buttons-bar {
+	height    : 38px; 
+	padding-top : 6px;
+	padding-left : 5px;
+	margin-bottom : 5px;
+	background: -moz-linear-gradient(#FAFAFA, #EAEAEA);
+	background: -webkit-linear-gradient(#FAFAFA, #EAEAEA);
+	background: linear-gradient(#FAFAFA, #EAEAEA);
+	border-bottom: 1px solid #CACACA;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4),0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+#logsystem {
+	display : table;
+	width : 100%;
+	height : 255px;
+}
+
+#loading-gif {
+	float:right; 
+	margin-right:25px;
+	margin-top:8px;
+	display:none;
+}
+
+#site-name_l {
+	float : left;
+	padding-left : 15px;
+}
+
+#site-name_r {
+	float : right;
+	padding-right : 15px;
+}
+
+#wrap {
+	min-width:940px;
+	max-width:1200px;
+	margin: 0 auto;
+	position:relative
+}
+
+#content-wrap {position:relative;width:100%}
+
+#sidebar {
+	position: absolute;
+	top: 0;
+	right: 1px;
+	width: 23%;
+	border-left: 2px dotted white;
+	padding-left: 5px;
+	min-height : 600px;
+}
+
+#content {
+	min-height : 800px;
+}
+
+#content #breadcrumb {
+	text-align : left;
+	margin-bottom : 10px;
+	font-weight : normal;
+}
+
+
+#footer {
+	clear:both;
+	border-top: 1px solid #0F499E;
+	padding: 10px 0 30px; 
+	color:#999
+}
+
+/* ================================================= */
+
+#map {
+    width: 700px;
+    height: 450px;
+    border: 1px solid #0F499E;
+    float:left;
+}
+
+#left_div {
+    width: 700px;
+    height: 450px;
+    border: 1px solid #0F499E;
+    float:left;
+}
+
+#unitname {
+	color : #DC3912;
+	font-size : 15px;
+	padding-top : 3px;
+	padding-bottom : 3px;
+}
+
+.orange_title {
+	color: #DC3912;
+	font-size: 15px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.smallbtn {
+	opacity : 0.6;
+	cursor : pointer;
+	margin-right : 10px;
+	width : 32px;
+	height : 32px;
+	float:left;
+}
+
+
+#right_div {
+	float:left; 
+	margin-left: 10px;
+	height: 745px;
+	position: relative;
+}
+
+table {
+	font-size : 11px;
+	border-collapse : collapse;
+	font-family	: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+}
+
+th{
+	border-bottom : 1px dotted #537DB4 ;
+	border-top : 1px dotted #537DB4;
+	background-color : #E1E1EA !important;	
+	text-align : left;
+	padding : 3px;
+}
+
+td{
+	border-bottom : 1px dotted #537DB4;
+	text-align : left;
+}
+
+tr{
+	cursor: pointer;
+	
+}
+
+a {
+	text-decoration : none;
+	color : #537DB4;
+}
+
+
+select{
+	font-family		: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+	border : 1px solid #537DB4;
+	background-color : #E1E1EA;	
+}
+
+
+input[type="text"]{
+	font-family		: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+	border : 1px solid #537DB4;
+	background-color : #E1E1EA;	
+}
+
+input[type="password"]{
+	font-family		: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+	border : 1px solid #537DB4;
+	background-color : #E1E1EA;	
+}
+
+input[type="submit"]{
+	font-family		: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+	border : 1px solid #0F499E;
+	background-color : #537DB4;
+	color : white;
+	padding : 4px 13px;
+}
+
+#login_box {
+	background-color : white;
+	border : 1px solid #0F499E;
+    display:block;
+    position:absolute;
+    left:35%;
+	margin-top : 80px;
+	padding-top : 20px;
+    width:350px;
+	height : 150px;
+	border-radius: 6px;	
+	box-shadow : 2px 5px 10px #000;
+	-moz-box-shadow : 2px 5px 10px #000; 
+	-webkit-box-shadow : 2px 5px 10px #000;	
+}
+
+#table_login {
+	width : 64%;
+	font-family	: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+	font-size : 11px;
+	border-collapse : collapse;	
+}
+
+#table_login td {
+	text-align : left;
+	border-bottom: 0px;
+	padding : 5px;
+}
+
+#table_login .td_button {
+	text-align : right;
+	border-bottom : 0px;
+}
+
+#destiny {
+	margin-top:10px;
+	font-family	: "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+}

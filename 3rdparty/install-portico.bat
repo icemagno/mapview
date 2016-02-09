@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=portico-2.0.0.jar -DgroupId=org.portico -DartifactId=portico -Dversion=2.0.0 -D packaging=jar -DgeneratePom=true

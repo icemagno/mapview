@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+	<appenders>
+		
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{dd/MM/YYYY HH:mm:ss} %-5level %logger{36} - %msg%n" />
+		</Console>
+		
+	</appenders>
+	
+	<loggers>
+	
+		<Logger name="br.cefetrj.sagitarii.Startup" level="error" additivity="false"> 
+			<appender-ref ref="Console"/> 
+		</Logger>
+	
+	
+		<root level="error">
+			<appender-ref ref="Console" />
+		</root>
+		
+	</loggers>
+	
+	
+</configuration>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	Arquivo de configuração do Sagitarii
+	Versão	: 5.0 
+	Por		: Carlos Magno Abreu em 29/05/2015
+ -->
+
+<configuration>
+	
+	<sagitarii>
+		<poolIntervalSeconds>2</poolIntervalSeconds>
+		<pseudoClusterIntervalSeconds>2</pseudoClusterIntervalSeconds>
+		<pseudoMaxTasks>5</pseudoMaxTasks>
+		<maxInputBufferCapacity>300</maxInputBufferCapacity>
+		<mainNodesQuant>1</mainNodesQuant>
+		<fileReceiverPort>3333</fileReceiverPort>
+		<fileReceiverChunkBufferSize>100</fileReceiverChunkBufferSize>
+		<firstDelayLimitSeconds>60</firstDelayLimitSeconds>
+		<CSVDelimiter>,</CSVDelimiter>
+		<useDynamicLoadBalancer>true</useDynamicLoadBalancer>
+		<databaseName>sagitarii</databaseName>
+		<userName>postgres</userName>
+		<password>admin</password>
+	</sagitarii>
+	
+</configuration>
+

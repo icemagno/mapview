@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>br.cefetrj</groupId>
+  <artifactId>mapview</artifactId>
+  <packaging>war</packaging>
+  <version>1.0.345</version>
+  <name>Sagitarii Data Science Workflow System HLA/RTI Based</name>
+  <url>http://eic-cefet-rj.github.io/sagitarii/</url>
+
+	<properties>
+		<jdk.version>1.7</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>	
+  
+  
+	<dependencies>
+	
+		<dependency>
+			<groupId>org.portico</groupId>
+			<artifactId>portico</artifactId>
+			<version>2.0.0</version>
+		</dependency> 
+		
+	
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.19</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-jfreechart-plugin</artifactId>
+			<version>2.3.20</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.1</version>
+		</dependency>	
+		
+		
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+        </dependency>	
+	
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.struts.xwork</groupId>
+			<artifactId>xwork-core</artifactId>
+			<version>2.3.20</version>
+		</dependency> 		
+
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>2.3.20</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-convention-plugin</artifactId>
+			<version>2.3.20</version>
+		</dependency>		
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>	
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.2</version>
+		</dependency>		
+		
+	</dependencies>
+	
+	<repositories>
+		<repository>
+			<id>repository.jboss.org-public</id>
+			<name>JBoss repository</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+		
+	</repositories>
+
+	
+	<build>
+		<finalName>mapview</finalName>
+		<plugins>
+		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+	
+	<developers>
+		<developer>
+			<email>magno.mabreu@gmail.com</email>
+			<name>Carlos Magno Abreu</name>
+			<url>https://github.com/icemagno</url>
+			<id>icemagno</id>
+		</developer>
+	</developers>	
+	
+	<organization>
+		<name>Centro Federal de Educação Tecnológica Celso Suckow da Fonseca</name>
+		<url>http://www.cefet-rj.br</url>
+	</organization>
+	
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/eic-cefet-rj/sagitarii/issues</url>
+	</issueManagement>
+	
+	<ciManagement>
+		<system>Github</system>
+		<url>https://github.com/eic-cefet-rj/sagitarii</url>
+	</ciManagement>
+	
+	<description>Data Science Workflow System HLA/RTI Based</description>
+</project>
