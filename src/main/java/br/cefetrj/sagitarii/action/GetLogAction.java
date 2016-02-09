@@ -27,7 +27,7 @@ public class GetLogAction {
 		
 		ServletContext context = ServletActionContext.getServletContext();
 		
-		String resposta = "";
+		String resposta = "{\"messages\":[ {\"type\":\"0\",\"message\":\"alo mundo\"}]}";
 		
 		try { 
 			HttpServletResponse response = (HttpServletResponse)ActionContext.getContext().get(StrutsStatics.HTTP_RESPONSE);
