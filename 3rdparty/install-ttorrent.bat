@@ -1,1 +1,0 @@
-mvn install:install-file -Dfile=ttorrent-1.5.jar -DgroupId=com.turn -DartifactId=ttorrent -Dversion=1.5 -D packaging=jar -DgeneratePom=true
