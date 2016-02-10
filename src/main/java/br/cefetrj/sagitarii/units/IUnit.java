@@ -5,4 +5,5 @@ public interface IUnit {
 	String getName();
 	String getCoordinates();
 	String getSerial();
+	String getFeature();
 }
