@@ -36,12 +36,12 @@
 				<div id="content">
 
 					<div class="buttons-bar">
-						<img id="btn_reload" class="smallbtn dicas" title="Recarregar Mapa" src="img/buttons/32/refresh.png" />		
-						<img id="btn_centermap" class="smallbtn dicas" title="Centralizar Mapa" src="img/buttons/32/globe.png" />			
-						<img id="btn_play" style="display:none" class="smallbtn dicas" title="Atualizar automaticamente" src="img/buttons/32/play.png" />
-						<img id="btn_stop" class="smallbtn dicas" title="Parar atualização automática" src="img/buttons/32/stop.png" />
+						<img id="btn_reload" class="smallbtn dicas" title="Reload Map" src="img/buttons/32/refresh.png" />		
+						<img id="btn_centermap" class="smallbtn dicas" title="Center Map" src="img/buttons/32/globe.png" />			
+						<img id="btn_play" style="display:none" class="smallbtn dicas" title="Start Map Auto Update" src="img/buttons/32/play.png" />
+						<img id="btn_stop" class="smallbtn dicas" title="Stop Map Auto Update" src="img/buttons/32/stop.png" />
 						
-						<img class="smallbtn dicas" id="showLogScreen" title="Exibir Log" src="img/buttons/32/terminal.png" />
+						<img class="smallbtn dicas" style="display:none" id="showLogScreen" title="Show Log" src="img/buttons/32/terminal.png" />
 						
 						<div id="loading-gif"><img src="img/loading.gif" /></div>
 					</div>
@@ -55,11 +55,11 @@
 						<div style="height:452px">
 
 
-							<div style="display:none" id="logsystem">
+							<div  id="logsystem">
 								<div class="buttons-bar">
-									<div class="orange_title" style="width:130px;margin-top:4px;float:left" >Log do Sistema</div> 
-									<img class="smallbtn dicas" id="closeLogScreen" style="float:right" title="Fechar" src="img/buttons/32/delete.png" />
-									<img class="smallbtn dicas" id="refreshLogData" style="float:right" title="Atualizar Log" src="img/buttons/32/refresh.png" />
+									<div class="orange_title" style="width:130px;margin-top:4px;float:left" >System Log</div> 
+									<img class="smallbtn dicas" id="closeLogScreen" style="float:right" title="Close" src="img/buttons/32/delete.png" />
+									<img class="smallbtn dicas" id="refreshLogData" style="float:right" title="Update Log" src="img/buttons/32/refresh.png" />
 								</div>
 								<table id="logtable" style="width:100%;">
 									<tbody></tbody>
@@ -88,29 +88,7 @@
 									</tr>
 								</table>
 							</div>	
-											
-							<div id="citydetails" style="display:none">
-								<div class="buttons-bar">
-									<img class="smallbtn dicas" id="closeCityDetails" style="float:right" title="Fechar" src="img/buttons/32/delete.png" />
-								</div>
-							
-							
-								<div class="orange_title" id="cityname"></div>
-								<table style="width:100%;">
-									<tr>
-										<th width="150">Nome</th>
-										<th width="60">Distância</th>
-										<th width="60">Direção</th>
-									</tr>
-									<tr>
-										<td id="cityname_old"></td>
-										<td id="citydist"></td>
-										<td id="citybearing"></td>
-									</tr>
-								</table>
-							</div>
-
-
+										
 						</div>
 						
 					</div>

@@ -23,9 +23,9 @@ public class GetUnitsAction  {
 	
 	public String execute(){
 		
-		String jsonResponse = UnitListProvider.getInstance().asJson();
-		
 		try { 
+			String jsonResponse = UnitListProvider.getInstance().asJson();
+			
 			HttpServletResponse response = (HttpServletResponse)ActionContext.getContext().get(StrutsStatics.HTTP_RESPONSE);
 			response.setCharacterEncoding("UTF-8"); 
 			response.getWriter().write(jsonResponse);  

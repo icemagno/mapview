@@ -1,5 +1,5 @@
 var countLog = 0;
-var workingLog = true;
+var workingLog = false;
 
 function initLogSystem() {
 	window.setInterval(getLog, logRefreshInterval);

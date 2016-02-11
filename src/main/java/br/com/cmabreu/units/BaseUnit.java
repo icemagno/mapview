@@ -11,25 +11,37 @@ public class BaseUnit implements IUnit {
 			+ "\"bearing\":0,\"color\":\"green\",\"size\":15,\"pin_image\":\"img/pins/friend/#IMG_NAME#.png\"},\"geometry\":{"
 			+ "\"type\":\"Point\",\"coordinates\":[#COORDINATES#]}}";
 
+	@Override
 	public String getFeature() {
 		return featureBasic.replace("#IMG_NAME#", getImageName()).replace("#NAME#", getName())
-			.replace("#SERIAL#", getSerial() ).replace("#COORDINATES#", getCoordinates());		
+			.replace("#SERIAL#", getSerial() ).replace("#COORDINATES#", getCoordinates() );
 	}
 	
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public void setSerial(String serial) {
+		this.serial = serial;
+	}
+	
+	@Override
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 	
+	@Override
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+	
+	@Override
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public BaseUnit( String name, String serial, String imageName  ) {
-		this.imageName = imageName;
-		this.name = name;
-		this.serial = serial;
-	}
-	
 	@Override
 	public String getImageName() {
 		return imageName;
@@ -42,7 +54,6 @@ public class BaseUnit implements IUnit {
 
 	@Override
 	public String getCoordinates() {
-		longitude = longitude + 0.001;
 		String coo = String.valueOf( longitude ) + "," + String.valueOf( latitude );
 		return coo;
 	}

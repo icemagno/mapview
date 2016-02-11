@@ -2,7 +2,7 @@
 var lat = 0;  
 var lon = 0; 
 var zoom = 0;
-var logRefreshInterval = 0;
+var logRefreshInterval = 2000;
 
 var map;
 var unitsLayer;

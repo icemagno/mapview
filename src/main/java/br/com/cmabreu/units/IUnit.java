@@ -6,6 +6,9 @@ public interface IUnit {
 	String getCoordinates();
 	String getSerial();
 	String getFeature();
+	void setName(String name);
+	void setImageName( String imageName );
+	void setSerial(String serial);
 	void setLongitude(double longitude);
 	void setLatitude(double latitude);
 }

@@ -1,16 +1,17 @@
 package br.com.cmabreu.action;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+
+import br.com.cmabreu.LogProvider;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -23,11 +24,15 @@ import com.opensymphony.xwork2.ActionContext;
 public class GetLogAction {
 	
 	public String execute(){	
-		String parameters = "";
 		
-		ServletContext context = ServletActionContext.getServletContext();
-		
-		String resposta = "{\"messages\":[ {\"type\":\"0\",\"message\":\"alo mundo\"}]}";
+		List<String> log = LogProvider.getInstance().getLog();
+		StringBuilder sb = new StringBuilder();
+		String prefix = "";
+		for ( String s : log) {
+			sb.append( prefix +  "{\"type\":\"0\",\"message\":\""+s+"\"}");
+			prefix = ",";
+		}
+		String resposta = "{\"messages\":["+sb.toString()+"]}";
 		
 		try { 
 			HttpServletResponse response = (HttpServletResponse)ActionContext.getContext().get(StrutsStatics.HTTP_RESPONSE);
