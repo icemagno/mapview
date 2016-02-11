@@ -12,8 +12,8 @@ import hla.rti1516e.encoding.HLAinteger64BE;
 import hla.rti1516e.encoding.HLAunicodeString;
 
 class Position {
-	private double longitude;
-	private double latitude;
+	private double longitude = 0;
+	private double latitude = 0;
 	public Position( double longitude, double latitude ) {
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -23,6 +23,12 @@ class Position {
 	}
 	public double getLongitude() {
 		return longitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 }
 

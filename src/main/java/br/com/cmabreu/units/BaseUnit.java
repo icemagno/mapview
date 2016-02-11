@@ -3,7 +3,7 @@ package br.com.cmabreu.units;
 public class BaseUnit implements IUnit {
 	private String name;
 	private String serial;
-	private String imageName;
+	private String imageName = "army";
 	private double longitude;
 	private double latitude;
 	private String featureBasic = "{\"type\":\"Feature\",\"properties\":{\"name\":\"#NAME#\",\"serial\":\"#SERIAL#\","

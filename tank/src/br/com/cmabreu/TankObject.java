@@ -1,5 +1,6 @@
 package br.com.cmabreu;
 
+import java.util.Random;
 import java.util.UUID;
 
 import hla.rti1516e.ObjectInstanceHandle;
@@ -13,6 +14,14 @@ public class TankObject {
 	private Position position;
 	private String name;
 	private String serial;
+	
+	// Update the Tank state... just walk a little by Longitude axis.
+	public void update() {
+		Random random = new Random();
+		double rate = random.nextInt(9)+1;
+		position.setLongitude( position.getLongitude() + ( rate / 10000 )  );
+	}
+	
 	
 	// Constructor. Must hold the instance handle of this Tank in RTI.
 	public TankObject( ObjectInstanceHandle instance ) {

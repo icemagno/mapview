@@ -58,7 +58,6 @@ public class UnitClass {
 
 	public ObjectInstanceHandle createNew( ObjectInstanceHandle coreObjectHandle ) throws RTIexception {
 		instances.add( new UnitObject(coreObjectHandle) );
-		log("New Unit discovered.");
 		return coreObjectHandle;
 	}
 	
@@ -143,7 +142,7 @@ public class UnitClass {
 
 		this.attributes = rtiamb.getAttributeHandleSetFactory().create();
 		attributes.add( nameHandle );
-		attributes.add( nameHandle );
+		attributes.add( serialHandle );
 		attributes.add( positionHandle );
 		// Our Unit list ( created by us or discovered )
 		instances = new ArrayList<UnitObject>();

@@ -44,7 +44,7 @@ public class TankClass {
 		to.setName(name);
 		to.setSerial(serial);
 		to.setPosition(position);		
-		log("Tank " + to.getModel() + " created.");
+		log("Tank " + to.getName() + " created.");
 		instances.add( to );
 		return coreObjectHandle;
 	}
@@ -87,6 +87,9 @@ public class TankClass {
 	public void updateAttributeValues() throws Exception {
 		// I will send updates for all Tanks 
 		for ( TankObject tank : instances  ) {
+			
+			tank.update(); 
+			
 			// Convert Java String to the RTI String 
 			HLAunicodeString modelValue = encoder.createHLAunicodeString( tank.getModel() );
 			HLAunicodeString nameValue = encoder.createHLAunicodeString( tank.getName() );

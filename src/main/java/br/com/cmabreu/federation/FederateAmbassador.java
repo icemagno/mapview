@@ -51,7 +51,6 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	                                    OrderType sentOrder,
 	                                    TransportationTypeHandle transport,
 	                                    SupplementalReflectInfo reflectInfo ) throws FederateInternalError {
-		log( "Attribute reflection" );
 		// Is this attribute from a Unit?
 		if ( federate.getUnitClass().isAUnit( theObject ) ) {
 			// If so, update my Unit object attributes
