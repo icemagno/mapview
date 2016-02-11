@@ -1,4 +1,4 @@
-package br.cefetrj.sagitarii.action;
+package br.com.cmabreu.action;
 
 import java.io.IOException;
 

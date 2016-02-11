@@ -1,18 +1,27 @@
-package br.cefetrj.sagitarii.units;
+package br.com.cmabreu.units;
 
 public class BaseUnit implements IUnit {
 	private String name;
 	private String serial;
 	private String imageName;
-	private double longitude = -50.06542968749966;
-	private double latitude = -23.749149728383717;
-	private String featureBasic = "[{\"type\":\"Feature\",\"properties\":{\"name\":\"#NAME#\",\"serial\":\"#SERIAL#\","
+	private double longitude;
+	private double latitude;
+	private String featureBasic = "{\"type\":\"Feature\",\"properties\":{\"name\":\"#NAME#\",\"serial\":\"#SERIAL#\","
+			+ "\"position\":\"#COORDINATES#\","
 			+ "\"bearing\":0,\"color\":\"green\",\"size\":15,\"pin_image\":\"img/pins/friend/#IMG_NAME#.png\"},\"geometry\":{"
-			+ "\"type\":\"Point\",\"coordinates\":[#COORDINATES#]}}]";
+			+ "\"type\":\"Point\",\"coordinates\":[#COORDINATES#]}}";
 
 	public String getFeature() {
 		return featureBasic.replace("#IMG_NAME#", getImageName()).replace("#NAME#", getName())
 			.replace("#SERIAL#", getSerial() ).replace("#COORDINATES#", getCoordinates());		
+	}
+	
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
 	public BaseUnit( String name, String serial, String imageName  ) {

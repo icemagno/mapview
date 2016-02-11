@@ -1,4 +1,4 @@
-package br.cefetrj.sagitarii.units;
+package br.com.cmabreu.units;
 
 public interface IUnit {
 	String getImageName();
@@ -6,4 +6,6 @@ public interface IUnit {
 	String getCoordinates();
 	String getSerial();
 	String getFeature();
+	void setLongitude(double longitude);
+	void setLatitude(double latitude);
 }

@@ -1,4 +1,4 @@
-package br.cefetrj.sagitarii;
+package br.com.cmabreu;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -12,9 +12,6 @@ import org.apache.logging.log4j.Logger;
 public class Startup implements ServletContextListener {
 	private Logger logger = LogManager.getLogger( this.getClass().getName() );
 
-	
-	
-	
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		logger.debug("init system");

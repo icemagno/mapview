@@ -17,10 +17,6 @@ $(document).ready(function() {
 		$(this).animate({opacity: 1}, 100);
 	});	
 
-	$('#btn_addwaypoint').click(function(){
-		addWayPoint();
-	});
-	
 	$('#moveUnit').click(function(){
 		$('#stopUnit').toggle();
 		$('#stopUnit').css("opacity", 1);
@@ -44,20 +40,6 @@ $(document).ready(function() {
 		}).always(function() { hideLoader(); });
 	});
 
-	
-	
-	$('#btn_wp_select').click(function(){
-		canMarkTarget = true;
-		$('#btn_wp_cancel_select').toggle();
-		$("#btn_wp_cancel_select").css("opacity", 1);
-		$(this).toggle();
-		
-	});
-	
-	$('#btn_wp_cancel_select').click(function(){
-		cancelSelectTarget();
-	});
-	
 	$('.smallbtn').mouseleave(function() {
 		var canop = $(this).attr('canop');
 		if ( canop == 'N') { return false; }
@@ -93,9 +75,7 @@ $(document).ready(function() {
 	
 	
 	$('#closeUnitDetails').click(function(){
-		cancelSelectTarget();
 		$('#unitdetaildisplay').toggle();
-		wayPointsLayer.removeAllFeatures();
 		selectEt.unselectAll();
 	});
 	

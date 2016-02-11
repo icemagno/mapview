@@ -1,4 +1,4 @@
-package br.cefetrj.sagitarii;
+package br.com.cmabreu;
 
 import java.io.InputStream;
 

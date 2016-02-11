@@ -1,4 +1,4 @@
-package br.cefetrj.sagitarii.action;
+package br.com.cmabreu.action;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import br.cefetrj.sagitarii.UnitListProvider;
+import br.com.cmabreu.UnitListProvider;
 
 import com.opensymphony.xwork2.ActionContext;
 
