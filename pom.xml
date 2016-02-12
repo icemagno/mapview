@@ -2,12 +2,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>br.cefetrj</groupId>
+  <groupId>br.com.cmabreu</groupId>
   <artifactId>mapview</artifactId>
   <packaging>war</packaging>
   <version>1.0.345</version>
-  <name>Sagitarii Data Science Workflow System HLA/RTI Based</name>
-  <url>http://eic-cefet-rj.github.io/sagitarii/</url>
+  <name>MapViewer Federate</name>
 
 	<properties>
 		<jdk.version>1.7</jdk.version>
@@ -190,15 +189,4 @@
 		<url>http://www.cefet-rj.br</url>
 	</organization>
 	
-	<issueManagement>
-		<system>Github</system>
-		<url>https://github.com/eic-cefet-rj/sagitarii/issues</url>
-	</issueManagement>
-	
-	<ciManagement>
-		<system>Github</system>
-		<url>https://github.com/eic-cefet-rj/sagitarii</url>
-	</ciManagement>
-	
-	<description>Data Science Workflow System HLA/RTI Based</description>
 </project>
