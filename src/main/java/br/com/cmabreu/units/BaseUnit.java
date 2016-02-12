@@ -3,12 +3,12 @@ package br.com.cmabreu.units;
 public class BaseUnit implements IUnit {
 	private String name;
 	private String serial;
-	private String imageName = "army";
+	private String imageName;
 	private double longitude;
 	private double latitude;
 	private String featureBasic = "{\"type\":\"Feature\",\"properties\":{\"name\":\"#NAME#\",\"serial\":\"#SERIAL#\","
 			+ "\"position\":\"#COORDINATES#\","
-			+ "\"bearing\":0,\"color\":\"green\",\"size\":15,\"pin_image\":\"img/pins/friend/#IMG_NAME#.png\"},\"geometry\":{"
+			+ "\"bearing\":0,\"color\":\"green\",\"size\":15,\"pin_image\":\"img/pins/#IMG_NAME#.png\"},\"geometry\":{"
 			+ "\"type\":\"Point\",\"coordinates\":[#COORDINATES#]}}";
 
 	@Override

@@ -27,32 +27,78 @@
     <objects>
         <objectClass>
             <name>HLAobjectRoot</name>
-			<objectClass>
-				<name>BasicUnit</name>
-				<objectClass>
-					<name>Tank</name>
-					<sharing>PublishSubscribe</sharing>
-					<semantics>The Tank Unit</semantics>
-					<attribute>
-						<name>Model</name>
-						<dataType>HLAunicodeString</dataType>
-						<updateType>Static</updateType>
-						<updateCondition>NA</updateCondition>
-						<ownership>NoTransfer</ownership>
-						<sharing>PublishSubscribe</sharing>
-						<dimensions/>
-						<transportation>HLAreliable</transportation>
-						<order>Receive</order>
-						<semantics>The Tank Model</semantics>
-					</attribute>  
-				</objectClass>
-			</objectClass>
+			
+            <objectClass>
+                <name>BasicUnit</name>
+                <sharing>PublishSubscribe</sharing>
+                <semantics>A Basic Unit</semantics>
+                <attribute>
+                    <name>Name</name>
+                    <dataType>HLAunicodeString</dataType>
+                    <updateType>Static</updateType>
+                    <updateCondition>NA</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Name of the Unit</semantics>
+                </attribute>
+                
+                <attribute>
+                    <name>Serial</name>
+                    <dataType>HLAunicodeString</dataType>
+                    <updateType>Static</updateType>
+                    <updateCondition>NA</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Serial ID of the Unit</semantics>
+                </attribute>                
+                
+                <attribute>
+                    <name>Position</name>
+                    <dataType>Position</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On Change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Coordinates of the Unit</semantics>
+                </attribute>     
+
+				
+            </objectClass>
+			
         </objectClass>
     </objects>
 	
     <interactions></interactions>
-    <dataTypes></dataTypes>	
-	
+    <dataTypes>
+    
+        <fixedRecordDataTypes>
+            <fixedRecordData>
+                <name>Position</name>
+                <encoding>HLAfixedRecord</encoding>
+                <semantics>Position in geographic coordinates.</semantics>
+                <field>
+                    <name>longitude</name>
+                    <dataType>HLAfloat64BE</dataType>
+                    <semantics>Longitude</semantics>
+                </field>
+                <field>
+                    <name>latitude</name>
+                    <dataType>HLAfloat64BE</dataType>
+                    <semantics>Latitude</semantics>
+                </field>
+            </fixedRecordData>
+        </fixedRecordDataTypes>    
+    
+    
+    </dataTypes>	
     <switches>
         <autoProvide isEnabled="true"/>
         <conveyRegionDesignatorSets isEnabled="false"/>

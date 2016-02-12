@@ -1,4 +1,4 @@
-package br.com.cmabreu.federation;
+package br.com.cmabreu;
 /*
  *   Copyright 2012 The Portico Project
  *
@@ -29,29 +29,18 @@ import java.net.URL;
 import java.util.Random;
 import java.util.UUID;
 
-import br.com.cmabreu.LogProvider;
-import br.com.cmabreu.PathFinder;
-
-public class MapViewFederate {
+public class Main {
 	private RTIambassador rtiamb;
 	private FederateAmbassador fedamb;  
-	private static MapViewFederate instance;
-	private UnitClass unitClass;
-	
+
+	private TankClass tankClass;
+
 	private void log( String message ) 	{
-		LogProvider.getInstance().addLog( message );
 		System.out.println( "> " + message );
 	}
-
-	public static MapViewFederate getInstance() {
-		if ( instance == null ) {
-			instance = new MapViewFederate();
-		}
-		return instance;
-	}
 	
-	public UnitClass getUnitClass() {
-		return unitClass;
+	public TankClass getTankClass() {
+		return tankClass;
 	}
 	
 	// Just get the RTI Ambassador
@@ -74,7 +63,7 @@ public class MapViewFederate {
 		log( "Creating Federation " + federationName );
 		try	{
 			URL[] modules = new URL[]{
-				(new File(PathFinder.getInstance().getPath() + "/foms/HLAstandardMIM.xml")).toURI().toURL()
+				(new File("foms/HLAstandardMIM.xml")).toURI().toURL()
 			};
 			rtiamb.createFederationExecution( federationName, modules );
 			log( "Created Federation." );
@@ -92,33 +81,58 @@ public class MapViewFederate {
 	// I recommend you to read this file.
 	private void joinFederation( String federationName, String federateName ) throws Exception  {
 		URL[] joinModules = new URL[]{
-			(new File( PathFinder.getInstance().getPath() + "/foms/unit.xml")).toURI().toURL(),
-			(new File( PathFinder.getInstance().getPath() + "/foms/tank.xml")).toURI().toURL(),
-			(new File( PathFinder.getInstance().getPath() + "/foms/aircraft.xml")).toURI().toURL()
+			(new File("foms/unit.xml")).toURI().toURL(),
+			(new File("foms/tank.xml")).toURI().toURL()
 		};
-		rtiamb.joinFederationExecution( federateName, "MapViewType", 
+		rtiamb.joinFederationExecution( federateName, "TankFederateType", 
 				federationName, joinModules );   
 		log( "Joined Federation as " + federateName );
 	}
 	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
+		String serial = UUID.randomUUID().toString().substring(1,5).toUpperCase();
+	
 		createRtiAmbassador();
 		connect();
 		createFederation("BasicFederation");
-		joinFederation("BasicFederation", "MapView");
+		joinFederation("BasicFederation", "TankFederate");
 		
 		// Start our objects managers.
-		unitClass = new UnitClass( rtiamb );
+		tankClass = new TankClass( rtiamb );
 		
 		// Publish and subscribe
 		publishAndSubscribe();
 		
+		// Create and Register 5 Units.
+		for ( int x=0; x<5; x++ ) {
+			Random random = new Random();
+			double lon = -50.065429 + ( random.nextInt(5)+1 / 100 );
+			double lat = -23.74914 + ( random.nextInt(5)+1 / 100 );
+			Position p = new Position( lon,lat);
+			String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
+			tankClass.createNew(id,id, p);
+		}
+		
+
+		// Wait the user to press a key to exit; 
+		System.out.println("Press a key to exit.");
+		while ( System.in.available() == 0 ) {
+			try {
+				tankClass.updateAttributeValues();
+				rtiamb.evokeMultipleCallbacks(0.1, 0.3);
+			} catch (Exception e) {
+				// 
+			}				
+		}
+
+		// Get out!
+		exitFromFederation();
 	}
 	
 	// Exit from Federation and try to destroy it.
 	// delete all objects owned by this Federate.
-	public void exitFromFederation() throws Exception {
+	private void exitFromFederation() throws Exception {
 		rtiamb.resignFederationExecution( ResignAction.DELETE_OBJECTS );
 		log( "Resigned from Federation" );
 		try	{
@@ -134,14 +148,17 @@ public class MapViewFederate {
 	// To publish our attributes and subscribe to interactions 
 	// and other Federates attributes
 	private void publishAndSubscribe() throws Exception	{
-		unitClass.subscribe();
+		
+		tankClass.publish();
+		log( "Published" );
+		
 	}
 
-	public void startFederate() {
+	// This is ... ahn... the main method?
+	public static void main( String[] args ) {
 		try	{
-			runFederate();
+			new Main( ).runFederate();
 		} catch( Exception rtie ) {
-			log( rtie.getMessage() );
 			rtie.printStackTrace();
 		}
 	}

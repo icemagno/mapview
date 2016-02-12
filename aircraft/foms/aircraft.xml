@@ -30,12 +30,12 @@
 			<objectClass>
 				<name>BasicUnit</name>
 				<objectClass>
-					<name>Tank</name>
+					<name>Aircraft</name>
 					<sharing>PublishSubscribe</sharing>
-					<semantics>The Tank Unit</semantics>
+					<semantics>The Aircraft Unit</semantics>
 					<attribute>
-						<name>Model</name>
-						<dataType>HLAunicodeString</dataType>
+						<name>MaxRange</name>
+						<dataType>HLAinteger32BE</dataType>
 						<updateType>Static</updateType>
 						<updateCondition>NA</updateCondition>
 						<ownership>NoTransfer</ownership>
@@ -43,7 +43,7 @@
 						<dimensions/>
 						<transportation>HLAreliable</transportation>
 						<order>Receive</order>
-						<semantics>The Tank Model</semantics>
+						<semantics>The Aircraft Max Range</semantics>
 					</attribute>  
 				</objectClass>
 			</objectClass>

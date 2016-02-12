@@ -1,6 +1,5 @@
-package br.com.cmabreu.federation;
+package br.com.cmabreu;
 
-import br.com.cmabreu.LogProvider;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.NullFederateAmbassador;
 import hla.rti1516e.ObjectClassHandle;
@@ -10,17 +9,16 @@ import hla.rti1516e.TransportationTypeHandle;
 import hla.rti1516e.exceptions.FederateInternalError;
 
 public class FederateAmbassador extends NullFederateAmbassador {
-	private MapViewFederate federate;
+	private Main federate;
 	
 	// The constructor. Must store the Federate to allow 
 	// interactivity
-	public FederateAmbassador( MapViewFederate federate ) {
+	public FederateAmbassador( Main federate ) {
 		this.federate = federate;
 	}
 
 	
 	private void log( String message )	{
-		LogProvider.getInstance().addLog( message );
 		System.out.println( "> " + message );
 	}
 	
@@ -31,14 +29,15 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	public void discoverObjectInstance( ObjectInstanceHandle theObject,
 	                                    ObjectClassHandle theObjectClass,
 	                                    String objectName ) throws FederateInternalError {
-		// Is the object we found a kind of Unit?
-		if ( federate.getUnitClass().isClassOf( theObjectClass ) ) {
+		log( "New object found" );
+		// Is the object we found a kind of Tank?
+		if ( federate.getTankClass().isClassOf( theObjectClass ) ) {
 			try {
-				// If so, create a new Unit object in our list.
-				federate.getUnitClass().createNew( theObjectClass, theObject );
-				log("New Unit discovered: " + objectName);
+				// If so, create a new Tank object in our list.
+				federate.getTankClass().createNew( theObject );
+				log("New Tank discovered");
 			} catch ( Exception e ) {
-				log( e.getMessage() );
+				e.printStackTrace();
 			}
 		}
 		
@@ -51,14 +50,11 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	                                    OrderType sentOrder,
 	                                    TransportationTypeHandle transport,
 	                                    SupplementalReflectInfo reflectInfo ) throws FederateInternalError {
-		// Is this attribute from a Unit?
-		if ( federate.getUnitClass().isAUnit( theObject ) ) {
-			// If so, update my Unit object attributes
-			try {
-				federate.getUnitClass().update( theAttributes, theObject );
-			} catch ( Exception e ) {
-				log( e.getMessage() );
-			}
+		log( "Attribute reflection" );
+		// Is this attribute from a Tank?
+		if ( federate.getTankClass().isATank( theObject ) ) {
+			// If so, update my Tank object attributes
+			federate.getTankClass().update( theAttributes, theObject );
 		}
 		
 	}

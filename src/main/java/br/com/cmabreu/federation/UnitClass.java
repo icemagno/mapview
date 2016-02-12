@@ -20,6 +20,10 @@ public class UnitClass {
 	private RTIambassador rtiamb;
 	// We must hold the handle of this class 
 	private ObjectClassHandle unitHandle;
+	// Must know the Tank class handle
+	private ObjectClassHandle tankHandle;
+	// Must know the Aircraft class handle
+	private ObjectClassHandle aircraftHandle;
 	// A list of Unit objects we will instantiate
 	private List<UnitObject> instances;
 	// An encoder helper
@@ -42,22 +46,17 @@ public class UnitClass {
 		return temp;
 	}
 	
-	// Create a new Unit and register. Store it in our list of objects. 
-	// This method is used only by the Unit Federate.
-	public ObjectInstanceHandle createNew(String name, String serial, String imageName, Position position ) throws RTIexception {
-		ObjectInstanceHandle coreObjectHandle = rtiamb.registerObjectInstance( unitHandle );
-		UnitObject to = new UnitObject(coreObjectHandle);
-		to.setName(name);
-		to.setSerial(serial);
-		to.setImageName(imageName);
-		to.setPosition(position);
-		log("New Unit " + to.getName() + " created.");
-		instances.add( to );
-		return coreObjectHandle;
-	}
-
-	public ObjectInstanceHandle createNew( ObjectInstanceHandle coreObjectHandle ) throws RTIexception {
-		instances.add( new UnitObject(coreObjectHandle) );
+	public ObjectInstanceHandle createNew(ObjectClassHandle classHandle, ObjectInstanceHandle coreObjectHandle ) throws RTIexception {
+		UnitObject uo = new UnitObject(coreObjectHandle);
+		
+		System.out.println("TH:" + tankHandle + " / AH:" + aircraftHandle + " / BU:" + unitHandle + " / CH:" + classHandle );
+		
+		if ( classHandle.equals( tankHandle ) ) {
+			uo.setImageName("signs/military");
+		} else {
+			uo.setImageName("foe/air_fixwing");
+		}
+		instances.add( uo );
 		return coreObjectHandle;
 	}
 	
@@ -133,6 +132,11 @@ public class UnitClass {
 	public UnitClass( RTIambassador rtiamb ) throws Exception {
 		// Get the RTIAmbassador. 
 		this.rtiamb = rtiamb;
+
+		// Just to know the Tank and Aircraft
+		this.tankHandle = rtiamb.getObjectClassHandle( "HLAobjectRoot.BasicUnit.Tank" );
+		this.aircraftHandle = rtiamb.getObjectClassHandle( "HLAobjectRoot.BasicUnit.Aircraft" );
+		
 		// Ask the RTI for the class handle of our Unit.
 		this.unitHandle = rtiamb.getObjectClassHandle( "HLAobjectRoot.BasicUnit" );
 		// Get the class handle for all attributes of the Unit
