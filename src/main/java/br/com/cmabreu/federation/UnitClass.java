@@ -49,6 +49,16 @@ public class UnitClass {
 		return coreObjectHandle;
 	}
 	
+	public void removeByRTIRequest( ObjectInstanceHandle coreObjectHandle ) {
+		for ( UnitObject unit : instances ) {
+			if ( unit.isMe(coreObjectHandle ) ) {
+				log( "Unit " + unit.getName() + " is gone." );
+				instances.remove( unit );
+				return;
+			}
+		}
+	}
+	
 	// When the Unit Federate sends the updates of its attributes, we must search
 	// in our list of discovered Units to see if this specific Unit is in there.
 	// If so, update its attributes. Do this only if you are NOT the Unit owner ( since you
@@ -56,7 +66,7 @@ public class UnitClass {
 	public UnitObject update( AttributeHandleValueMap theAttributes, ObjectInstanceHandle theObject ) throws Exception {
 		// Find the Unit instance
 		for ( UnitObject unit : instances ) {
-			if( unit.getHandle().equals( theObject) ) {
+			if( unit.isMe( theObject ) ) {
 				// Update its attributes.
 				for( AttributeHandle attributeHandle : theAttributes.keySet() )	{
 					// Is the attribute the Unit's Model?

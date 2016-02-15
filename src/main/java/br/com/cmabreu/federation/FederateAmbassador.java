@@ -1,6 +1,5 @@
 package br.com.cmabreu.federation;
 
-import br.com.cmabreu.LogProvider;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.NullFederateAmbassador;
 import hla.rti1516e.ObjectClassHandle;
@@ -8,6 +7,7 @@ import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.OrderType;
 import hla.rti1516e.TransportationTypeHandle;
 import hla.rti1516e.exceptions.FederateInternalError;
+import br.com.cmabreu.LogProvider;
 
 public class FederateAmbassador extends NullFederateAmbassador {
 	private MapViewFederate federate;
@@ -22,6 +22,21 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	private void log( String message )	{
 		LogProvider.getInstance().addLog( message );
 		System.out.println( "> " + message );
+	}
+	
+	
+	// 
+	@Override
+	public void removeObjectInstance(ObjectInstanceHandle theObject,
+               byte[] userSuppliedTag,
+               OrderType sentOrdering,
+               SupplementalRemoveInfo removeInfo) {
+
+		if ( federate.getUnitClass().isAUnit( theObject ) ) {
+			federate.getUnitClass().removeByRTIRequest( theObject );
+		}
+		
+		
 	}
 	
 	

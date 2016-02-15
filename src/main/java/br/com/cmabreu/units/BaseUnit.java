@@ -69,7 +69,6 @@ public class BaseUnit implements IUnit {
 			case FRIEND : folder = "friend"; break;
 			case FOE : folder = "foe"; break;
 		}
-		System.out.println( " >> " + folder + "/" + this.imageName );
 		return folder + "/" + this.imageName;
 	}
 

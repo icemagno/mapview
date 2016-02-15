@@ -22,8 +22,8 @@ public class GetInitialMapConfigAction {
 
 	public String execute(){
 		
-		String mapCenterLat = "-25";
-		String mapCenterLon = "-49";
+		String mapCenterLat = "-30";
+		String mapCenterLon = "-53";
 		
 		int zoom = 5;
 		int refreshIntval = 2000;

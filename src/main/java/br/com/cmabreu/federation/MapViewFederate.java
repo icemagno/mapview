@@ -26,8 +26,6 @@ import hla.rti1516e.exceptions.FederationExecutionDoesNotExist;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Random;
-import java.util.UUID;
 
 import br.com.cmabreu.LogProvider;
 import br.com.cmabreu.PathFinder;
@@ -92,9 +90,7 @@ public class MapViewFederate {
 	// I recommend you to read this file.
 	private void joinFederation( String federationName, String federateName ) throws Exception  {
 		URL[] joinModules = new URL[]{
-			(new File( PathFinder.getInstance().getPath() + "/foms/unit.xml")).toURI().toURL(),
-			(new File( PathFinder.getInstance().getPath() + "/foms/tank.xml")).toURI().toURL(),
-			(new File( PathFinder.getInstance().getPath() + "/foms/aircraft.xml")).toURI().toURL()
+			(new File( PathFinder.getInstance().getPath() + "/foms/unit.xml")).toURI().toURL()
 		};
 		rtiamb.joinFederationExecution( federateName, "MapViewType", 
 				federationName, joinModules );   
