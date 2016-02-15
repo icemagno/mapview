@@ -3,7 +3,7 @@
 	xmlns="http://www.sisostds.org/schemas/IEEE1516-2010"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema"
 	xsi:schemaLocation="http://www.sisostds.org/schemas/IEEE1516-2010 http://www.sisostds.org/schemas/IEEE1516-DIF-2010.xsd">
-	<modelIdentification>
+    <modelIdentification>
         <name>Simulations HLA/RTI Tuturial</name>
         <type>SOM</type>
         <version>1.0</version>
@@ -11,7 +11,7 @@
         <securityClassification>Unclassified</securityClassification>
         <purpose>Basic Federation Tutorial</purpose>
         <applicationDomain>Engineering</applicationDomain>
-        <description>Basic Federation Tutorial for Simulations Blog at http://sim.cmabreu.com.br/</description>
+        <description>Basic Federation Tutorial</description>
         <useLimitation>None</useLimitation>
         <poc>
             <pocType>Primary author</pocType>
@@ -59,6 +59,19 @@
                 </attribute>                
                 
                 <attribute>
+                    <name>ImageName</name>
+                    <dataType>HLAunicodeString</dataType>
+                    <updateType>Static</updateType>
+                    <updateCondition>NA</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>PNG Image to show on the Map Viewer.This image is at img folder at MapView Federate</semantics>
+                </attribute>                
+
+                <attribute>
                     <name>Position</name>
                     <dataType>Position</dataType>
                     <updateType>Conditional</updateType>
@@ -69,14 +82,51 @@
                     <order>Receive</order>
                     <semantics>Coordinates of the Unit</semantics>
                 </attribute>     
-                                                
+
+                <attribute>
+                    <name>UnitType</name>
+                    <dataType>UnitType</dataType>
+                    <updateType>Static</updateType>
+                    <updateCondition>NA</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Type of the Unit</semantics>
+                </attribute>     
+				
             </objectClass>
 			
         </objectClass>
     </objects>
 	
-    
+    <interactions></interactions>
     <dataTypes>
+    
+        <enumeratedDataTypes>
+            <enumeratedData>
+                <name>UnitType</name>
+                <representation>HLAinteger32BE</representation>
+                <semantics>Friend, foe or what</semantics>
+                <enumerator>
+                    <name>Me</name>
+                    <value>100</value>
+                </enumerator>
+                <enumerator>
+                    <name>Friend</name>
+                    <value>101</value>
+                </enumerator>
+                <enumerator>
+                    <name>Foe</name>
+                    <value>102</value>
+                </enumerator>
+                <enumerator>
+                    <name>Unknown</name>
+                    <value>103</value>
+                </enumerator>
+            </enumeratedData>
+        </enumeratedDataTypes>
+    
     
         <fixedRecordDataTypes>
             <fixedRecordData>
@@ -97,8 +147,7 @@
         </fixedRecordDataTypes>    
     
     
-    </dataTypes>
-	
+    </dataTypes>	
     <switches>
         <autoProvide isEnabled="true"/>
         <conveyRegionDesignatorSets isEnabled="false"/>

@@ -36,7 +36,7 @@ public class FederateAmbassador extends NullFederateAmbassador {
 			try {
 				// If so, create a new Unit object in our list.
 				federate.getUnitClass().createNew( theObjectClass, theObject );
-				log("New Unit discovered: " + objectName);
+				log("New Unit discovered");
 			} catch ( Exception e ) {
 				log( e.getMessage() );
 			}

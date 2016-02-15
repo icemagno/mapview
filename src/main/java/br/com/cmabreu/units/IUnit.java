@@ -11,4 +11,6 @@ public interface IUnit {
 	void setSerial(String serial);
 	void setLongitude(double longitude);
 	void setLatitude(double latitude);
+	int getUnitType();
+	void setUnitType(int unitType);
 }

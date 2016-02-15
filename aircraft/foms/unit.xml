@@ -59,6 +59,19 @@
                 </attribute>                
                 
                 <attribute>
+                    <name>ImageName</name>
+                    <dataType>HLAunicodeString</dataType>
+                    <updateType>Static</updateType>
+                    <updateCondition>NA</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>PNG Image to show on the Map Viewer.This image is at img folder at MapView Federate</semantics>
+                </attribute>                
+
+                <attribute>
                     <name>Position</name>
                     <dataType>Position</dataType>
                     <updateType>Conditional</updateType>
@@ -70,6 +83,17 @@
                     <semantics>Coordinates of the Unit</semantics>
                 </attribute>     
 
+                <attribute>
+                    <name>UnitType</name>
+                    <dataType>UnitType</dataType>
+                    <updateType>Static</updateType>
+                    <updateCondition>NA</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Type of the Unit</semantics>
+                </attribute>     
 				
             </objectClass>
 			
@@ -78,6 +102,31 @@
 	
     <interactions></interactions>
     <dataTypes>
+    
+        <enumeratedDataTypes>
+            <enumeratedData>
+                <name>UnitType</name>
+                <representation>HLAinteger32BE</representation>
+                <semantics>Friend, foe or what</semantics>
+                <enumerator>
+                    <name>Me</name>
+                    <value>100</value>
+                </enumerator>
+                <enumerator>
+                    <name>Friend</name>
+                    <value>101</value>
+                </enumerator>
+                <enumerator>
+                    <name>Foe</name>
+                    <value>102</value>
+                </enumerator>
+                <enumerator>
+                    <name>Unknown</name>
+                    <value>103</value>
+                </enumerator>
+            </enumeratedData>
+        </enumeratedDataTypes>
+    
     
         <fixedRecordDataTypes>
             <fixedRecordData>

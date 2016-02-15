@@ -6,6 +6,7 @@ import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectClassHandle;
 import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.RTIambassador;
+import hla.rti1516e.encoding.HLAinteger32BE;
 import hla.rti1516e.encoding.HLAunicodeString;
 import hla.rti1516e.exceptions.RTIexception;
 
@@ -26,7 +27,9 @@ public class TankClass {
 	private AttributeHandle modelHandle;
 	private AttributeHandle nameHandle;
 	private AttributeHandle serialHandle;
+	private AttributeHandle imageNameHandle;
 	private AttributeHandle positionHandle;
+	private AttributeHandle unitTypeHandle;
 	
 	// Hold all our registered attributes  
 	private AttributeHandleSet attributes;
@@ -38,9 +41,9 @@ public class TankClass {
 	// Create a new Tank and register. Store it in our list of objects. 
 	// Only the object owner can registerObjectInstance() of an object.
 	// This method is used only by the Tank Federate.
-	public ObjectInstanceHandle createNew(String name, String serial, Position position) throws RTIexception {
+	public ObjectInstanceHandle createNew(String name, String serial, Position position,int unitType) throws RTIexception {
 		ObjectInstanceHandle coreObjectHandle = rtiamb.registerObjectInstance( tankHandle );
-		TankObject to = new TankObject(coreObjectHandle);
+		TankObject to = new TankObject(coreObjectHandle, unitType);
 		to.setName(name);
 		to.setSerial(serial);
 		to.setPosition(position);		
@@ -55,7 +58,7 @@ public class TankClass {
 	// store all tanks your Radar found. The two createNew() methods are exclusives:
 	// This is used by Federates that not own the Tank object.
 	public ObjectInstanceHandle createNew( ObjectInstanceHandle coreObjectHandle ) throws RTIexception {
-		instances.add( new TankObject(coreObjectHandle) );
+		instances.add( new TankObject(coreObjectHandle, TankObject.UNKNOWN ) );
 		return coreObjectHandle;
 	}
 	
@@ -81,19 +84,29 @@ public class TankClass {
 		}
 		return null;
 	}
+
+	
+	public void updatePosition() throws Exception {
+		for ( TankObject tank : instances  ) {
+			tank.update();
+			AttributeHandleValueMap attributes = rtiamb.getAttributeHandleValueMapFactory().create(1);
+			attributes.put( positionHandle, encoder.encodePosition( tank.getPosition() ) );			
+			rtiamb.updateAttributeValues( tank.getHandle(), attributes, "Tank Position".getBytes() );
+		}
+	}
 	
 	// Here you will send to the RTI the attribute changes of all Tanks
-	// or some Tanks if you want. Do this only if you are the Tank Federate ( Tank's owner )
 	public void updateAttributeValues() throws Exception {
 		// I will send updates for all Tanks 
 		for ( TankObject tank : instances  ) {
-			
-			tank.update(); 
 			
 			// Convert Java String to the RTI String 
 			HLAunicodeString modelValue = encoder.createHLAunicodeString( tank.getModel() );
 			HLAunicodeString nameValue = encoder.createHLAunicodeString( tank.getName() );
 			HLAunicodeString serialValue = encoder.createHLAunicodeString( tank.getSerial() );
+			HLAunicodeString imageNameValue = encoder.createHLAunicodeString( tank.getImageName() );
+			HLAinteger32BE unitTypeValue = encoder.createHLAinteger32BE( tank.getUnitType() );
+			
 			// Create a package to send all to the RTI
 			// We will reserve space for one element ( create(1) ) but it may grow
 			// if more is added.
@@ -102,11 +115,13 @@ public class TankClass {
 			attributes.put( modelHandle, modelValue.toByteArray() );
 			attributes.put( nameHandle, nameValue.toByteArray() );
 			attributes.put( serialHandle, serialValue.toByteArray() );
+			attributes.put( imageNameHandle, imageNameValue.toByteArray() );
+			attributes.put( unitTypeHandle, unitTypeValue.toByteArray() );			
 			attributes.put( positionHandle, encoder.encodePosition( tank.getPosition() ) );			
 			
 			// When send the attributes to update, we must tell the RTI what specific object is it owner.
 			// we must give the object handle of this Tank. We can send a tag to track this operation
-			rtiamb.updateAttributeValues( tank.getHandle(), attributes, "The Tag I Like".getBytes() );
+			rtiamb.updateAttributeValues( tank.getHandle(), attributes, "Tank First Update".getBytes() );
 		}
 		
 	}
@@ -139,7 +154,9 @@ public class TankClass {
 		this.modelHandle = rtiamb.getAttributeHandle( tankHandle, "Model" );
 		this.nameHandle = rtiamb.getAttributeHandle( tankHandle, "Name" );
 		this.serialHandle = rtiamb.getAttributeHandle( tankHandle, "Serial" );
+		this.imageNameHandle = rtiamb.getAttributeHandle( tankHandle, "ImageName" );
 		this.positionHandle = rtiamb.getAttributeHandle( tankHandle, "Position" );
+		this.unitTypeHandle = rtiamb.getAttributeHandle( tankHandle, "UnitType" );
 		// Create a list to store all attribute handles of the Tank
 		// just to avoid to create again when publish / subscribe
 		// but you may want to publish and subscribe to different attributes.
@@ -152,6 +169,8 @@ public class TankClass {
 		attributes.add( modelHandle );
 		attributes.add( nameHandle );
 		attributes.add( serialHandle );
+		attributes.add( imageNameHandle );
+		attributes.add( unitTypeHandle );
 		attributes.add( positionHandle );
 		
 		

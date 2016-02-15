@@ -6,7 +6,6 @@ import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.ObjectClassHandle;
 import hla.rti1516e.ObjectInstanceHandle;
 import hla.rti1516e.RTIambassador;
-import hla.rti1516e.encoding.HLAunicodeString;
 import hla.rti1516e.exceptions.RTIexception;
 
 import java.util.ArrayList;
@@ -20,10 +19,6 @@ public class UnitClass {
 	private RTIambassador rtiamb;
 	// We must hold the handle of this class 
 	private ObjectClassHandle unitHandle;
-	// Must know the Tank class handle
-	private ObjectClassHandle tankHandle;
-	// Must know the Aircraft class handle
-	private ObjectClassHandle aircraftHandle;
 	// A list of Unit objects we will instantiate
 	private List<UnitObject> instances;
 	// An encoder helper
@@ -31,7 +26,9 @@ public class UnitClass {
 	// We must hold the handle for all attributes of this class
 	private AttributeHandle nameHandle;
 	private AttributeHandle serialHandle;
+	private AttributeHandle imageNameHandle;
 	private AttributeHandle positionHandle;
+	private AttributeHandle unitTypeHandle;
 	// Hold all our registered attributes  
 	private AttributeHandleSet attributes;
 
@@ -48,14 +45,6 @@ public class UnitClass {
 	
 	public ObjectInstanceHandle createNew(ObjectClassHandle classHandle, ObjectInstanceHandle coreObjectHandle ) throws RTIexception {
 		UnitObject uo = new UnitObject(coreObjectHandle);
-		
-		System.out.println("TH:" + tankHandle + " / AH:" + aircraftHandle + " / BU:" + unitHandle + " / CH:" + classHandle );
-		
-		if ( classHandle.equals( tankHandle ) ) {
-			uo.setImageName("signs/military");
-		} else {
-			uo.setImageName("foe/air_fixwing");
-		}
 		instances.add( uo );
 		return coreObjectHandle;
 	}
@@ -77,6 +66,12 @@ public class UnitClass {
 					if( attributeHandle.equals( serialHandle) ) {
 						unit.setSerial( encoder.toString( theAttributes.get(attributeHandle) ) );
 					}
+					if( attributeHandle.equals( imageNameHandle) ) {
+						unit.setImageName( encoder.toString( theAttributes.get(attributeHandle) ) );
+					}
+					if( attributeHandle.equals( unitTypeHandle ) ) {
+						unit.setUnitType( encoder.toInteger32( theAttributes.get(attributeHandle) ) );
+					}
 					if( attributeHandle.equals( positionHandle) ) {
 						unit.setPosition( encoder.decodePosition( theAttributes.get(attributeHandle) ) );
 					}
@@ -85,29 +80,6 @@ public class UnitClass {
 			}
 		}
 		return null;
-	}
-	
-	// Here you will send to the RTI the attribute changes of all Units
-	// or some Units if you want. Do this only if you are the Unit Federate ( Unit's owner )
-	public void updateAttributeValues() throws Exception {
-		// I will send updates for all Units 
-		for ( UnitObject unit : instances  ) {
-			// Convert Java String to the RTI String 
-			HLAunicodeString nameValue = encoder.createHLAunicodeString( unit.getName() );
-			HLAunicodeString serialValue = encoder.createHLAunicodeString( unit.getSerial() );
-			// Create a package to send all to the RTI
-			// We will reserve space for one element ( create(1) ) but it may grow
-			// if more is added.
-			AttributeHandleValueMap attributes = rtiamb.getAttributeHandleValueMapFactory().create(3);
-			// We must tell the attribute handle of this attribute value so the RTI can identify it.
-			attributes.put( nameHandle, nameValue.toByteArray() );
-			attributes.put( serialHandle, serialValue.toByteArray() );
-			attributes.put( positionHandle, encoder.encodePosition( unit.getPosition() ) );
-			// When send the attributes to update, we must tell the RTI what specific object is it owner.
-			// we must give the object handle of this Unit. We can send a tag to track this operation
-			rtiamb.updateAttributeValues( unit.getHandle(), attributes, unit.getName().getBytes() );
-		}
-		
 	}
 	
 	// Check if a given object handle is one of mine objects
@@ -133,21 +105,21 @@ public class UnitClass {
 		// Get the RTIAmbassador. 
 		this.rtiamb = rtiamb;
 
-		// Just to know the Tank and Aircraft
-		this.tankHandle = rtiamb.getObjectClassHandle( "HLAobjectRoot.BasicUnit.Tank" );
-		this.aircraftHandle = rtiamb.getObjectClassHandle( "HLAobjectRoot.BasicUnit.Aircraft" );
-		
 		// Ask the RTI for the class handle of our Unit.
 		this.unitHandle = rtiamb.getObjectClassHandle( "HLAobjectRoot.BasicUnit" );
 		// Get the class handle for all attributes of the Unit
 		this.nameHandle = rtiamb.getAttributeHandle( unitHandle, "Name" );
 		this.serialHandle = rtiamb.getAttributeHandle( unitHandle, "Serial" );
+		this.imageNameHandle = rtiamb.getAttributeHandle( unitHandle, "ImageName" );
 		this.positionHandle = rtiamb.getAttributeHandle( unitHandle, "Position" );
+		this.unitTypeHandle = rtiamb.getAttributeHandle( unitHandle, "UnitType" );
 
 		this.attributes = rtiamb.getAttributeHandleSetFactory().create();
 		attributes.add( nameHandle );
 		attributes.add( serialHandle );
+		attributes.add( imageNameHandle );
 		attributes.add( positionHandle );
+		attributes.add( unitTypeHandle );		
 		// Our Unit list ( created by us or discovered )
 		instances = new ArrayList<UnitObject>();
 		// Our encoder helper.

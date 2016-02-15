@@ -11,31 +11,22 @@ import hla.rti1516e.exceptions.FederateInternalError;
 public class FederateAmbassador extends NullFederateAmbassador {
 	private Main federate;
 	
-	// The constructor. Must store the Federate to allow 
-	// interactivity
 	public FederateAmbassador( Main federate ) {
 		this.federate = federate;
 	}
-
 	
 	private void log( String message )	{
 		System.out.println( "> " + message );
 	}
 	
-	
-	// All new object - rtiamb.registerObjectInstance( classHandle ) -  
-	// that arrives into RTI will trigger this event
 	@Override
 	public void discoverObjectInstance( ObjectInstanceHandle theObject,
 	                                    ObjectClassHandle theObjectClass,
 	                                    String objectName ) throws FederateInternalError {
-		log( "New object found" );
-		// Is the object we found a kind of Tank?
-		if ( federate.getTankClass().isClassOf( theObjectClass ) ) {
+		if ( federate.getAircraftClass().isClassOf( theObjectClass ) ) {
 			try {
-				// If so, create a new Tank object in our list.
-				federate.getTankClass().createNew( theObject );
-				log("New Tank discovered");
+				federate.getAircraftClass().createNew( theObject );
+				log("New Aircraft discovered");
 			} catch ( Exception e ) {
 				e.printStackTrace();
 			}
@@ -51,10 +42,8 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	                                    TransportationTypeHandle transport,
 	                                    SupplementalReflectInfo reflectInfo ) throws FederateInternalError {
 		log( "Attribute reflection" );
-		// Is this attribute from a Tank?
-		if ( federate.getTankClass().isATank( theObject ) ) {
-			// If so, update my Tank object attributes
-			federate.getTankClass().update( theAttributes, theObject );
+		if ( federate.getAircraftClass().isAnAircraft( theObject ) ) {
+			federate.getAircraftClass().update( theAttributes, theObject );
 		}
 		
 	}

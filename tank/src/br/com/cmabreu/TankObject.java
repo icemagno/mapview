@@ -14,6 +14,14 @@ public class TankObject {
 	private Position position;
 	private String name;
 	private String serial;
+	private String imageName = "military";
+	private int unitType = UNKNOWN;
+	
+	public static final int ME = 100;
+	public static final int FRIEND = 101;
+	public static final int FOE = 102;
+	public static final int UNKNOWN = 103;
+	
 	
 	// Update the Tank state... just walk a little by Longitude axis.
 	public void update() {
@@ -22,11 +30,19 @@ public class TankObject {
 		position.setLongitude( position.getLongitude() + ( rate / 10000 )  );
 	}
 	
+	public String getImageName() {
+		return imageName;
+	}
+	
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
 	
 	// Constructor. Must hold the instance handle of this Tank in RTI.
-	public TankObject( ObjectInstanceHandle instance ) {
+	public TankObject( ObjectInstanceHandle instance, int unitType ) {
 		this.model = UUID.randomUUID().toString().substring(1,5).toUpperCase();
 		this.instance = instance;
+		this.unitType = unitType;
 	}
 	
 	// Check if a given object is this specific Tank
@@ -71,6 +87,14 @@ public class TankObject {
 
 	public void setSerial(String serial) {
 		this.serial = serial;
+	}
+	
+	public int getUnitType() {
+		return unitType;
+	}
+	
+	public void setUnitType(int unitType) {
+		this.unitType = unitType;
 	}
 	
 	

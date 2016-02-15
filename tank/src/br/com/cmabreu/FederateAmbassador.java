@@ -29,7 +29,6 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	public void discoverObjectInstance( ObjectInstanceHandle theObject,
 	                                    ObjectClassHandle theObjectClass,
 	                                    String objectName ) throws FederateInternalError {
-		log( "New object found" );
 		// Is the object we found a kind of Tank?
 		if ( federate.getTankClass().isClassOf( theObjectClass ) ) {
 			try {
@@ -50,7 +49,6 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	                                    OrderType sentOrder,
 	                                    TransportationTypeHandle transport,
 	                                    SupplementalReflectInfo reflectInfo ) throws FederateInternalError {
-		log( "Attribute reflection" );
 		// Is this attribute from a Tank?
 		if ( federate.getTankClass().isATank( theObject ) ) {
 			// If so, update my Tank object attributes

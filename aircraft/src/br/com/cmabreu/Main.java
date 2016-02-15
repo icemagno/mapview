@@ -33,14 +33,14 @@ public class Main {
 	private RTIambassador rtiamb;
 	private FederateAmbassador fedamb;  
 
-	private TankClass tankClass;
+	private AircraftClass aircraftClass;
 
 	private void log( String message ) 	{
 		System.out.println( "> " + message );
 	}
 	
-	public TankClass getTankClass() {
-		return tankClass;
+	public AircraftClass getAircraftClass() {
+		return aircraftClass;
 	}
 	
 	// Just get the RTI Ambassador
@@ -82,44 +82,45 @@ public class Main {
 	private void joinFederation( String federationName, String federateName ) throws Exception  {
 		URL[] joinModules = new URL[]{
 			(new File("foms/unit.xml")).toURI().toURL(),
-			(new File("foms/tank.xml")).toURI().toURL()
+			(new File("foms/aircraft.xml")).toURI().toURL()
 		};
-		rtiamb.joinFederationExecution( federateName, "TankFederateType", 
+		rtiamb.joinFederationExecution( federateName, "AircraftFederateType", 
 				federationName, joinModules );   
 		log( "Joined Federation as " + federateName );
 	}
 	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
-		String serial = UUID.randomUUID().toString().substring(1,5).toUpperCase();
-	
 		createRtiAmbassador();
 		connect();
 		createFederation("BasicFederation");
-		joinFederation("BasicFederation", "TankFederate");
+		joinFederation("BasicFederation", "AircraftFederate");
 		
 		// Start our objects managers.
-		tankClass = new TankClass( rtiamb );
+		aircraftClass = new AircraftClass( rtiamb );
 		
 		// Publish and subscribe
 		publishAndSubscribe();
 		
 		// Create and Register 5 Units.
-		for ( int x=0; x<5; x++ ) {
+		for ( int x=0; x<2; x++ ) {
 			Random random = new Random();
-			double lon = -50.065429 + ( random.nextInt(5)+1 / 100 );
-			double lat = -23.74914 + ( random.nextInt(5)+1 / 100 );
+			double lon = -64.265429 + ( random.nextInt(10)+1 / 1000 );
+			double lat = -36.64914 + ( random.nextInt(10)+1 / 1000 );
 			Position p = new Position( lon,lat);
 			String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
-			tankClass.createNew(id,id, p);
+			aircraftClass.createNew(id,id, p, AircraftObject.FOE );
 		}
 		
-
+		// Update all attributes for the first time
+		aircraftClass.updateAttributeValues();
+		
 		// Wait the user to press a key to exit; 
 		System.out.println("Press a key to exit.");
 		while ( System.in.available() == 0 ) {
 			try {
-				tankClass.updateAttributeValues();
+				// Update only the position
+				aircraftClass.updatePosition();
 				rtiamb.evokeMultipleCallbacks(0.1, 0.3);
 			} catch (Exception e) {
 				// 
@@ -149,7 +150,7 @@ public class Main {
 	// and other Federates attributes
 	private void publishAndSubscribe() throws Exception	{
 		
-		tankClass.publish();
+		aircraftClass.publish();
 		log( "Published" );
 		
 	}

@@ -91,8 +91,6 @@ public class Main {
 	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
-		String serial = UUID.randomUUID().toString().substring(1,5).toUpperCase();
-	
 		createRtiAmbassador();
 		connect();
 		createFederation("BasicFederation");
@@ -107,19 +105,22 @@ public class Main {
 		// Create and Register 5 Units.
 		for ( int x=0; x<5; x++ ) {
 			Random random = new Random();
-			double lon = -50.065429 + ( random.nextInt(5)+1 / 100 );
-			double lat = -23.74914 + ( random.nextInt(5)+1 / 100 );
+			double lon = -60.065429 + ( random.nextInt(5)+1 / 100 );
+			double lat = -27.74914 + ( random.nextInt(5)+1 / 100 );
 			Position p = new Position( lon,lat);
 			String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
-			tankClass.createNew(id,id, p);
+			tankClass.createNew(id,id, p, TankObject.FRIEND );
 		}
 		
-
+		// Update all attributes for the fisrt time
+		tankClass.updateAttributeValues();
+		
 		// Wait the user to press a key to exit; 
 		System.out.println("Press a key to exit.");
 		while ( System.in.available() == 0 ) {
 			try {
-				tankClass.updateAttributeValues();
+				// Update only the position
+				tankClass.updatePosition();
 				rtiamb.evokeMultipleCallbacks(0.1, 0.3);
 			} catch (Exception e) {
 				// 
