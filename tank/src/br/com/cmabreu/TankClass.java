@@ -95,36 +95,59 @@ public class TankClass {
 		}
 	}
 	
+	public void provideAttributeValueUpdate(ObjectInstanceHandle theObject,	
+			AttributeHandleSet theAttributes ) {
+		log("Update attribute request for object " + theObject);
+		for ( TankObject tank : instances ) {
+			if( tank.isMe( theObject ) ) {
+				try {
+					updateAttributeValuesObject( tank );
+				} catch ( Exception e ) {
+					log("Error when send attributes updates");
+				}
+				return;
+			}
+		}
+	}		
+	
+	
 	// Here you will send to the RTI the attribute changes of all Tanks
+	/*
 	public void updateAttributeValues() throws Exception {
 		// I will send updates for all Tanks 
 		for ( TankObject tank : instances  ) {
-			
-			// Convert Java String to the RTI String 
-			HLAunicodeString modelValue = encoder.createHLAunicodeString( tank.getModel() );
-			HLAunicodeString nameValue = encoder.createHLAunicodeString( tank.getName() );
-			HLAunicodeString serialValue = encoder.createHLAunicodeString( tank.getSerial() );
-			HLAunicodeString imageNameValue = encoder.createHLAunicodeString( tank.getImageName() );
-			HLAinteger32BE unitTypeValue = encoder.createHLAinteger32BE( tank.getUnitType() );
-			
-			// Create a package to send all to the RTI
-			// We will reserve space for one element ( create(1) ) but it may grow
-			// if more is added.
-			AttributeHandleValueMap attributes = rtiamb.getAttributeHandleValueMapFactory().create(4);
-			// We must tell the attribute handle of this attribute value so the RTI can identify it.
-			attributes.put( modelHandle, modelValue.toByteArray() );
-			attributes.put( nameHandle, nameValue.toByteArray() );
-			attributes.put( serialHandle, serialValue.toByteArray() );
-			attributes.put( imageNameHandle, imageNameValue.toByteArray() );
-			attributes.put( unitTypeHandle, unitTypeValue.toByteArray() );			
-			attributes.put( positionHandle, encoder.encodePosition( tank.getPosition() ) );			
-			
-			// When send the attributes to update, we must tell the RTI what specific object is it owner.
-			// we must give the object handle of this Tank. We can send a tag to track this operation
-			rtiamb.updateAttributeValues( tank.getHandle(), attributes, "Tank First Update".getBytes() );
+			updateAttributeValuesObject( tank );
 		}
 		
 	}
+	*/
+
+	public void updateAttributeValuesObject( TankObject tank ) throws Exception {
+		// Convert Java String to the RTI String 
+		HLAunicodeString modelValue = encoder.createHLAunicodeString( tank.getModel() );
+		HLAunicodeString nameValue = encoder.createHLAunicodeString( tank.getName() );
+		HLAunicodeString serialValue = encoder.createHLAunicodeString( tank.getSerial() );
+		HLAunicodeString imageNameValue = encoder.createHLAunicodeString( tank.getImageName() );
+		HLAinteger32BE unitTypeValue = encoder.createHLAinteger32BE( tank.getUnitType() );
+		
+		// Create a package to send all to the RTI
+		// We will reserve space for one element ( create(1) ) but it may grow
+		// if more is added.
+		AttributeHandleValueMap attributes = rtiamb.getAttributeHandleValueMapFactory().create(4);
+		// We must tell the attribute handle of this attribute value so the RTI can identify it.
+		attributes.put( modelHandle, modelValue.toByteArray() );
+		attributes.put( nameHandle, nameValue.toByteArray() );
+		attributes.put( serialHandle, serialValue.toByteArray() );
+		attributes.put( imageNameHandle, imageNameValue.toByteArray() );
+		attributes.put( unitTypeHandle, unitTypeValue.toByteArray() );			
+		attributes.put( positionHandle, encoder.encodePosition( tank.getPosition() ) );			
+		
+		// When send the attributes to update, we must tell the RTI what specific object is it owner.
+		// we must give the object handle of this Tank. We can send a tag to track this operation
+		rtiamb.updateAttributeValues( tank.getHandle(), attributes, "Tank First Update".getBytes() );
+	}
+
+	
 	
 	// Check if a given object handle is one of mine objects
 	// ( a handle of a Tank object )

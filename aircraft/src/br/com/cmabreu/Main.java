@@ -91,10 +91,11 @@ public class Main {
 	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
+		String serial = UUID.randomUUID().toString().substring(0,5).toUpperCase();
 		createRtiAmbassador();
 		connect();
 		createFederation("BasicFederation");
-		joinFederation("BasicFederation", "AircraftFederate");
+		joinFederation("BasicFederation", "AircraftFederate" + serial);
 		
 		// Start our objects managers.
 		aircraftClass = new AircraftClass( rtiamb );
@@ -113,7 +114,9 @@ public class Main {
 		}
 		
 		// Update all attributes for the first time
-		aircraftClass.updateAttributeValues();
+		// You can push it all immediately or use provideAttributeValueUpdate() 
+		// and requestAttributeValueUpdate().   
+		// aircraftClass.updateAttributeValues();
 		
 		// Wait the user to press a key to exit; 
 		System.out.println("Press a key to exit.");

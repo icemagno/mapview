@@ -24,8 +24,6 @@ public class FederateAmbassador extends NullFederateAmbassador {
 		System.out.println( "> " + message );
 	}
 	
-	
-	// 
 	@Override
 	public void removeObjectInstance(ObjectInstanceHandle theObject,
                byte[] userSuppliedTag,
@@ -35,10 +33,7 @@ public class FederateAmbassador extends NullFederateAmbassador {
 		if ( federate.getUnitClass().isAUnit( theObject ) ) {
 			federate.getUnitClass().removeByRTIRequest( theObject );
 		}
-		
-		
 	}
-	
 	
 	// All new object - rtiamb.registerObjectInstance( classHandle ) -  
 	// that arrives into RTI will trigger this event
@@ -77,7 +72,6 @@ public class FederateAmbassador extends NullFederateAmbassador {
 		}
 		
 	}
-
 
 
 }

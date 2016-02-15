@@ -1,5 +1,6 @@
 package br.com.cmabreu;
 
+import hla.rti1516e.AttributeHandleSet;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.NullFederateAmbassador;
 import hla.rti1516e.ObjectClassHandle;
@@ -22,6 +23,16 @@ public class FederateAmbassador extends NullFederateAmbassador {
 		System.out.println( "> " + message );
 	}
 	
+	@Override
+	public void provideAttributeValueUpdate(ObjectInstanceHandle theObject,
+			AttributeHandleSet theAttributes, byte[] userSuppliedTag)
+			throws FederateInternalError {
+
+		if ( federate.getTankClass().isATank( theObject ) ) {
+			federate.getTankClass().provideAttributeValueUpdate(theObject, theAttributes);
+		}
+		
+	}	
 	
 	// All new object - rtiamb.registerObjectInstance( classHandle ) -  
 	// that arrives into RTI will trigger this event

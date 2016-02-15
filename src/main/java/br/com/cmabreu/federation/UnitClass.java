@@ -45,6 +45,9 @@ public class UnitClass {
 	
 	public ObjectInstanceHandle createNew(ObjectClassHandle classHandle, ObjectInstanceHandle coreObjectHandle ) throws RTIexception {
 		UnitObject uo = new UnitObject(coreObjectHandle);
+		
+		rtiamb.requestAttributeValueUpdate(coreObjectHandle, attributes, "Request Update".getBytes() ); 
+		
 		instances.add( uo );
 		return coreObjectHandle;
 	}

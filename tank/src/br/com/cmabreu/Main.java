@@ -91,10 +91,12 @@ public class Main {
 	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
+		String serial = UUID.randomUUID().toString().substring(0,5).toUpperCase();
+		
 		createRtiAmbassador();
 		connect();
 		createFederation("BasicFederation");
-		joinFederation("BasicFederation", "TankFederate");
+		joinFederation("BasicFederation", "TankFederate" + serial);
 		
 		// Start our objects managers.
 		tankClass = new TankClass( rtiamb );
@@ -113,7 +115,9 @@ public class Main {
 		}
 		
 		// Update all attributes for the fisrt time
-		tankClass.updateAttributeValues();
+		// You can push it all immediately or use provideAttributeValueUpdate() 
+		// and requestAttributeValueUpdate().   
+		// tankClass.updateAttributeValues();
 		
 		// Wait the user to press a key to exit; 
 		System.out.println("Press a key to exit.");

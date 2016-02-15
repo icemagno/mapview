@@ -1,5 +1,6 @@
 package br.com.cmabreu;
 
+import hla.rti1516e.AttributeHandleSet;
 import hla.rti1516e.AttributeHandleValueMap;
 import hla.rti1516e.NullFederateAmbassador;
 import hla.rti1516e.ObjectClassHandle;
@@ -18,6 +19,18 @@ public class FederateAmbassador extends NullFederateAmbassador {
 	private void log( String message )	{
 		System.out.println( "> " + message );
 	}
+	
+	@Override
+	public void provideAttributeValueUpdate(ObjectInstanceHandle theObject,
+			AttributeHandleSet theAttributes, byte[] userSuppliedTag)
+			throws FederateInternalError {
+
+		if ( federate.getAircraftClass().isAnAircraft( theObject ) ) {
+			federate.getAircraftClass().provideAttributeValueUpdate(theObject, theAttributes);
+		}
+		
+	}
+	
 	
 	@Override
 	public void discoverObjectInstance( ObjectInstanceHandle theObject,

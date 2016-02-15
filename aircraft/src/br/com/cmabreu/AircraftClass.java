@@ -56,7 +56,7 @@ public class AircraftClass {
 	
 	public AircraftObject update( AttributeHandleValueMap theAttributes, ObjectInstanceHandle theObject ) {
 		for ( AircraftObject aircraft : instances ) {
-			if( aircraft.getHandle().equals( theObject) ) {
+			if( aircraft.isMe( theObject ) ) {
 				for( AttributeHandle attributeHandle : theAttributes.keySet() )	{
 					if( attributeHandle.equals( maxRangeHandle) ) {
 						aircraft.setMaxRange( encoder.toInteger32( theAttributes.get(attributeHandle) ) );
@@ -78,28 +78,49 @@ public class AircraftClass {
 		}
 	}
 	
+	
+	public void provideAttributeValueUpdate(ObjectInstanceHandle theObject,	
+			AttributeHandleSet theAttributes )  {
+		log("Update attribute request for object " + theObject);
+		for ( AircraftObject aircraft : instances ) {
+			if( aircraft.isMe( theObject ) ) {
+				try {
+					updateAttributeValuesObject( aircraft );
+				} catch ( Exception e ) {
+					log("Error when send attributes updates");
+				}
+				return;
+			}
+		}
+	}	
+	
+	/*
 	public void updateAttributeValues() throws Exception {
 		for ( AircraftObject aircraft : instances  ) {
-			
-			HLAinteger32BE maxRangeValue = encoder.createHLAinteger32BE( aircraft.getMaxRange() );
-			HLAunicodeString nameValue = encoder.createHLAunicodeString( aircraft.getName() );
-			HLAunicodeString serialValue = encoder.createHLAunicodeString( aircraft.getSerial() );
-			HLAunicodeString imageNameValue = encoder.createHLAunicodeString( aircraft.getImageName() );
-			HLAinteger32BE unitTypeValue = encoder.createHLAinteger32BE( aircraft.getUnitType() );
-
-			AttributeHandleValueMap attributes = rtiamb.getAttributeHandleValueMapFactory().create(4);
-
-			attributes.put( maxRangeHandle, maxRangeValue.toByteArray() );
-			attributes.put( nameHandle, nameValue.toByteArray() );
-			attributes.put( serialHandle, serialValue.toByteArray() );
-			attributes.put( imageNameHandle, imageNameValue.toByteArray() );
-			attributes.put( positionHandle, encoder.encodePosition( aircraft.getPosition() ) );			
-			attributes.put( unitTypeHandle, unitTypeValue.toByteArray() );			
-			
-			rtiamb.updateAttributeValues( aircraft.getHandle(), attributes, "Aircraft First Update".getBytes() );
+			updateAttributeValuesObject( aircraft );
 		}
-		
 	}
+	*/
+
+	public void updateAttributeValuesObject( AircraftObject aircraft ) throws Exception {
+		HLAinteger32BE maxRangeValue = encoder.createHLAinteger32BE( aircraft.getMaxRange() );
+		HLAunicodeString nameValue = encoder.createHLAunicodeString( aircraft.getName() );
+		HLAunicodeString serialValue = encoder.createHLAunicodeString( aircraft.getSerial() );
+		HLAunicodeString imageNameValue = encoder.createHLAunicodeString( aircraft.getImageName() );
+		HLAinteger32BE unitTypeValue = encoder.createHLAinteger32BE( aircraft.getUnitType() );
+
+		AttributeHandleValueMap attributes = rtiamb.getAttributeHandleValueMapFactory().create(4);
+
+		attributes.put( maxRangeHandle, maxRangeValue.toByteArray() );
+		attributes.put( nameHandle, nameValue.toByteArray() );
+		attributes.put( serialHandle, serialValue.toByteArray() );
+		attributes.put( imageNameHandle, imageNameValue.toByteArray() );
+		attributes.put( positionHandle, encoder.encodePosition( aircraft.getPosition() ) );			
+		attributes.put( unitTypeHandle, unitTypeValue.toByteArray() );			
+		
+		rtiamb.updateAttributeValues( aircraft.getHandle(), attributes, "Aircraft First Update".getBytes() );
+	}
+
 	
 	public boolean isAnAircraft( ObjectInstanceHandle objHandle ) {
 		for ( AircraftObject aircraftObj : instances  ) {
