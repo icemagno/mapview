@@ -63,7 +63,8 @@ public class Main {
 		log( "Creating Federation " + federationName );
 		try	{
 			URL[] modules = new URL[]{
-				(new File("foms/HLAstandardMIM.xml")).toURI().toURL()
+				(new File("foms/HLAstandardMIM.xml")).toURI().toURL(),
+				(new File("foms/unit.xml")).toURI().toURL()
 			};
 			rtiamb.createFederationExecution( federationName, modules );
 			log( "Created Federation." );
@@ -81,7 +82,6 @@ public class Main {
 	// I recommend you to read this file.
 	private void joinFederation( String federationName, String federateName ) throws Exception  {
 		URL[] joinModules = new URL[]{
-			(new File("foms/unit.xml")).toURI().toURL(),
 			(new File("foms/aircraft.xml")).toURI().toURL()
 		};
 		rtiamb.joinFederationExecution( federateName, "AircraftFederateType", 
