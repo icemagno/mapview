@@ -91,7 +91,9 @@ public class Main implements IKeyReaderObserver {
 	
 	@Override
 	public void notify( String key ) {
-		System.out.println("Pressed: " + key );
+		if ( key.equals("n") ) {
+			createAircraft();
+		}
 	}
 	
 	@Override
@@ -102,6 +104,19 @@ public class Main implements IKeyReaderObserver {
 			rtiamb.evokeMultipleCallbacks(0.1, 0.3);
 		} catch ( Exception e ) {
 			//
+		}
+	}
+	
+	private void createAircraft() {
+		Random random = new Random();
+		double lon = -64.265429 + ( random.nextInt(10)+1 / 1000 );
+		double lat = -36.64914 + ( random.nextInt(10)+1 / 1000 );
+		Position p = new Position( lon,lat);
+		String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
+		try {
+			aircraftClass.createNew(id,id, p, AircraftObject.FOE );
+		} catch ( Exception e ) {
+			log("Error when creating a new Aircraft: " + e.getMessage() );
 		}
 	}
 	
@@ -118,16 +133,6 @@ public class Main implements IKeyReaderObserver {
 		
 		// Publish and subscribe
 		publishAndSubscribe();
-		
-		// Create and Register 5 Units.
-		for ( int x=0; x<2; x++ ) {
-			Random random = new Random();
-			double lon = -64.265429 + ( random.nextInt(10)+1 / 1000 );
-			double lat = -36.64914 + ( random.nextInt(10)+1 / 1000 );
-			Position p = new Position( lon,lat);
-			String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
-			aircraftClass.createNew(id,id, p, AircraftObject.FOE );
-		}
 		
 		// Update all attributes for the first time
 		// You can push it all immediately or use provideAttributeValueUpdate() 

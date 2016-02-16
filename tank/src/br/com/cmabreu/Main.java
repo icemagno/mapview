@@ -91,7 +91,9 @@ public class Main implements IKeyReaderObserver {
 	
 	@Override
 	public void notify( String key ) {
-		System.out.println("Pressed: " + key );
+		if ( key.equals("n") ) {
+			createTank();
+		}
 	}
 	
 	@Override
@@ -104,6 +106,19 @@ public class Main implements IKeyReaderObserver {
 			//
 		}
 	}	
+	
+	private void createTank() {
+		Random random = new Random();
+		double lon = -60.065429 + ( random.nextInt(5)+1 / 100 );
+		double lat = -27.74914 + ( random.nextInt(5)+1 / 100 );
+		Position p = new Position( lon,lat);
+		String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
+		try {
+			tankClass.createNew(id,id, p, TankObject.FRIEND );
+		} catch ( Exception e ) {
+			log("Error when creating a new Tank: " + e.getMessage() );
+		}
+	}
 	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
@@ -119,16 +134,6 @@ public class Main implements IKeyReaderObserver {
 		
 		// Publish and subscribe
 		publishAndSubscribe();
-		
-		// Create and Register 5 Units.
-		for ( int x=0; x<5; x++ ) {
-			Random random = new Random();
-			double lon = -60.065429 + ( random.nextInt(5)+1 / 100 );
-			double lat = -27.74914 + ( random.nextInt(5)+1 / 100 );
-			Position p = new Position( lon,lat);
-			String id = UUID.randomUUID().toString().substring(0,5).toUpperCase();
-			tankClass.createNew(id,id, p, TankObject.FRIEND );
-		}
 		
 		// Update all attributes for the fisrt time
 		// You can push it all immediately or use provideAttributeValueUpdate() 
