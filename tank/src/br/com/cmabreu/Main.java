@@ -29,7 +29,7 @@ import java.net.URL;
 import java.util.Random;
 import java.util.UUID;
 
-public class Main {
+public class Main implements IKeyReaderObserver {
 	private RTIambassador rtiamb;
 	private FederateAmbassador fedamb;  
 
@@ -89,6 +89,22 @@ public class Main {
 		log( "Joined Federation as " + federateName );
 	}
 	
+	@Override
+	public void notify( String key ) {
+		System.out.println("Pressed: " + key );
+	}
+	
+	@Override
+	public void whenIdle() {
+		// Update only the position
+		try {
+			tankClass.updatePosition();
+			rtiamb.evokeMultipleCallbacks(0.1, 0.3);
+		} catch ( Exception e ) {
+			//
+		}
+	}	
+	
 	// Run the Federate.
 	public void runFederate() throws Exception	{
 		String serial = UUID.randomUUID().toString().substring(0,5).toUpperCase();
@@ -119,17 +135,14 @@ public class Main {
 		// and requestAttributeValueUpdate().   
 		// tankClass.updateAttributeValues();
 		
-		// Wait the user to press a key to exit; 
-		System.out.println("Press a key to exit.");
-		while ( System.in.available() == 0 ) {
-			try {
-				// Update only the position
-				tankClass.updatePosition();
-				rtiamb.evokeMultipleCallbacks(0.1, 0.3);
-			} catch (Exception e) {
-				// 
-			}				
-		}
+		System.out.println("====== TANK FEDERATE ======");
+		System.out.println("Type:");
+		System.out.println("");
+		System.out.println(" n + ENTER : New tank");
+		System.out.println(" q + ENTER : Quit");
+		System.out.println("");
+		KeyReader kr = new KeyReader( this, "q" );
+		kr.readKeyUntilQuit();
 
 		// Get out!
 		exitFromFederation();
