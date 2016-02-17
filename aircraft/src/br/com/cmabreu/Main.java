@@ -26,6 +26,8 @@ import hla.rti1516e.exceptions.FederationExecutionDoesNotExist;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -178,6 +180,12 @@ public class Main implements IKeyReaderObserver {
 
 	// This is ... ahn... the main method?
 	public static void main( String[] args ) {
+		
+		if ( args.length > 0  ) {
+			Map<String, String> newenv = new HashMap<String, String>();
+			newenv.put("RTI_RID_FILE", "./rti.RID" );
+		}
+		
 		try	{
 			new Main( ).runFederate();
 		} catch( Exception rtie ) {

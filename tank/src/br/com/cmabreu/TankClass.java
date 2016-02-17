@@ -85,7 +85,7 @@ public class TankClass {
 		return null;
 	}
 
-	
+
 	public void updatePosition() throws Exception {
 		for ( TankObject tank : instances  ) {
 			tank.update();
