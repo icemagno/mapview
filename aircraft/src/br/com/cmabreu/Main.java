@@ -180,6 +180,7 @@ public class Main implements IKeyReaderObserver {
 
 	// This is ... ahn... the main method?
 	public static void main( String[] args ) {
+		System.setProperty("java.net.preferIPv4Stack" , "true");
 		
 		if ( args.length > 0  ) {
 			Map<String, String> newenv = new HashMap<String, String>();
