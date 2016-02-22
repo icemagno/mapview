@@ -27,7 +27,7 @@ portico.logdir = logs
 #        Specify the level that Portico will log at. Valid values are: TRACE, DEBUG, INFO, WARN,
 #        ERROR, FATAL, OFF. The default value is "WARN".
 #
-portico.loglevel = TRACE
+portico.loglevel = OFF
 
 # (1.3) Portico Container Log Level
 #        Specify the log level that Portico will use for its infrastructure elements (like the
