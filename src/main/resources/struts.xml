@@ -6,6 +6,7 @@
 <struts>
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.multipart.maxSize" value="20971520" />
+	<constant name="struts.action.excludePattern" value="/echo"/>
 	 
 	<package name="chart" extends="jfreechart-default" >
 	 	<interceptors> 

@@ -19,6 +19,7 @@
 		<script src="js/gridmap.js"></script>
 		
 		<script src="js/script.js"></script>
+		<script src="js/websocket.js"></script>
 
 
 	</head>
@@ -67,6 +68,8 @@
 							</div>	
 
 					
+							<div id="thingsThatHappened"></div>
+					
 							<div id="unitdetaildisplay" style="display:none">
 								
 								<div class="buttons-bar"> 
@@ -93,10 +96,14 @@
 						
 					</div>
 					
-					
-
-					
 				</div>
 
+<script>
+
+	$(document).ready(function() {
+		startWebSocket();
+	});
+	
+</script>
 				
 <%@ include file="footer.jsp" %>		
