@@ -4,9 +4,6 @@
     <property name="context-root" value="mapview"/>
     <wb-resource deploy-path="/" source-path="src/main/webapp"/>
     <property name="java-output-path" value="/target/classes"/>
-    <dependent-module archiveName="javax.websocket-api-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/javax/websocket/javax.websocket-api/1.1/javax.websocket-api-1.1.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
     <dependent-module archiveName="portico-2.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/portico/portico/2.0.0/portico-2.0.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>

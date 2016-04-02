@@ -2,13 +2,12 @@ package br.com.cmabreu;
 
 import br.com.cmabreu.federation.MapViewFederate;
 import br.com.cmabreu.units.IUnit;
+import br.com.cmabreu.websockets.ClientList;
 
-public class UnitListProvider {
-	private static UnitListProvider instance;
-	
+public class UnitListProvider implements Runnable {
 	private String jsonBasic = "{\"type\":\"FeatureCollection\",\"features\":[#FEATURES#]}";
 	
-	public String asJson() {
+	private String asJson() {
 		StringBuilder sb = new StringBuilder();
 		String prefix = "";
 		for( IUnit unit : MapViewFederate.getInstance().getUnitClass().getInstances() ) {
@@ -18,12 +17,16 @@ public class UnitListProvider {
 		}
 		return jsonBasic.replace("#FEATURES#", sb.toString() );
 	}
-	
-	public static UnitListProvider getInstance() {
-		if ( instance == null ) {
-			instance = new UnitListProvider();
+
+	@Override
+	public void run() {
+		try {
+			String jsonResponse = asJson();
+			ClientList.getInstance().message(jsonResponse);
+		} catch ( Exception e ) {
+			
 		}
-		return instance;
 	}
+	
 
 }

@@ -90,7 +90,7 @@ function init(){
 		unitRefreshInterval = data.refreshInterval;
 		logRefreshInterval = data.logRefreshInterval;
 		
-		intervalo = window.setInterval(animateUnits, unitRefreshInterval);
+		//intervalo = window.setInterval(animateUnits, unitRefreshInterval);
 		initMap();
 		initLogSystem();
 	});

@@ -1,17 +1,8 @@
 package br.com.cmabreu.action;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
-
-import br.com.cmabreu.UnitListProvider;
-
-import com.opensymphony.xwork2.ActionContext;
 
 @Action(value="getUnits", results= {  
 	    @Result(name="ok", type="httpheader", params={"status", "200"}) } 
@@ -22,7 +13,7 @@ import com.opensymphony.xwork2.ActionContext;
 public class GetUnitsAction  {
 	
 	public String execute(){
-		
+		/*
 		try { 
 			String jsonResponse = UnitListProvider.getInstance().asJson();
 			
@@ -32,7 +23,7 @@ public class GetUnitsAction  {
 		} catch (IOException ex) {  
 			System.out.println("[GetUnitsAction] Erro respondendo AJAX."); 
 		}
-		
+		*/
 		return "ok";
 	}
 		 

@@ -1,19 +1,36 @@
 
+function internalLog( messageToAdd ) {
+	var logMessage = {type:"0", message:messageToAdd};
+	addLog(logMessage);
+}
+
 function startWebSocket() {
-	// Cria um novo WebSocket
-	var mySocket = new WebSocket("ws://localhost:8580/mapview/echo");
+	var mySocket = new WebSocket("ws://localhost:8080/mapview/websocket");
 	
-	// Associa os “listeners”
 	mySocket.onopen = function(evt) {
-		// Enviando dados
 		mySocket.send("WebSocket Rocks!");
-		// Fecha o WebSocket
-		//mySocket.close();
 	};
 	
 	mySocket.onmessage = function(event) {
-		$("#thingsThatHappened").html($("#thingsThatHappened").html() + "<br />" + "New message arrived: " + event.data);
+		
+		var data = JSON.parse( event.data );
+	
+		for ( var x=0; x< data.features.length; x++  ) {
+			if ( data.features[x].properties.serial == selectedunit ) {
+				updateUnitDisplay( data.features[x].properties );
+			}
+		}
+		
+		var geojson_format = new OpenLayers.Format.GeoJSON({
+		    'internalProjection': map.baseLayer.projection,
+		    'externalProjection': new OpenLayers.Projection("EPSG:4326")
+		});
+		
+		unitsLayer.removeAllFeatures();
+	    unitsLayer.addFeatures(geojson_format.read(data));
+	    
 	};
+
 	
 	mySocket.onclose = function(event) {
 	       var reason;
@@ -48,10 +65,11 @@ function startWebSocket() {
 	        else
 	            reason = "Unknown reason";
 
-	        $("#thingsThatHappened").html($("#thingsThatHappened").html() + "<br />" + "The connection was closed for reason: " + reason);
+	        internalLog("The connection was closed for reason: " + reason);
        };
 	
 	mySocket.onerror = function(event) {
-		$("#thingsThatHappened").html($("#thingsThatHappened").html() + "<br />" + "There was an error with your websocket.");	};
+		internalLog( "There was an error with your websocket.");	
+	};
 	
 }

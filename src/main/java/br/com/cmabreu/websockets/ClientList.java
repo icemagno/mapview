@@ -1,13 +1,15 @@
 package br.com.cmabreu.websockets;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.apache.catalina.websocket.StreamInbound;
+import javax.websocket.Session;
+
 
 public class ClientList {
 	private static ClientList instance;
-	private List<StreamInbound> clients;
+	private Set<Session> userSessions = Collections.synchronizedSet( new HashSet<Session>() );
 	
 	public static ClientList getInstance() {
 		if ( instance == null ) {
@@ -16,16 +18,26 @@ public class ClientList {
 		return instance;
 	}
 	
-	public void addClient( StreamInbound client ) {
-		List<StreamInbound> tempList = new ArrayList<StreamInbound>();
-		for ( StreamInbound c : clients ) {
-			// check to close and remove.
-		}
-		clients.add( client );
+	public void addClient( Session userSession ) {
+		System.out.println("new client");
+		userSessions.add(userSession);		
 	}
 	
-	private ClientList() {
-		clients = new ArrayList<StreamInbound>();
+	public void removeClient( Session userSession ) {
+		System.out.println("lost client");
+		userSessions.remove(userSession);
+	}
+	
+	public void message( String message ) {
+		message( message, null);
+	}
+
+	public void message( String message, Session userSession ) {
+        for (Session session : userSessions) {
+            session.getAsyncRemote().sendText( message );
+			System.out.println( message );
+
+        }		
 	}
 
 }

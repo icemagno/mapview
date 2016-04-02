@@ -17,16 +17,6 @@
 	</session-config>
 
 
-	<servlet>
-		<servlet-name>WsChatServlet</servlet-name>
-		<servlet-class>br.com.cmabreu.websockets.Teste</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>WsChatServlet</servlet-name>
-		<url-pattern>/echo</url-pattern>
-	</servlet-mapping>
-
-
 	<filter>
 		<filter-name>chiron</filter-name>
 		<filter-class>
