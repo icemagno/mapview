@@ -19,12 +19,12 @@ public class ClientList {
 	}
 	
 	public void addClient( Session userSession ) {
-		System.out.println("new client");
+		System.out.println("> new client");
 		userSessions.add(userSession);		
 	}
 	
 	public void removeClient( Session userSession ) {
-		System.out.println("lost client");
+		System.out.println("> lost client");
 		userSessions.remove(userSession);
 	}
 	
@@ -35,8 +35,6 @@ public class ClientList {
 	public void message( String message, Session userSession ) {
         for (Session session : userSessions) {
             session.getAsyncRemote().sendText( message );
-			System.out.println( message );
-
         }		
 	}
 

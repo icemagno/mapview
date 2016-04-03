@@ -1,14 +1,17 @@
 
 function internalLog( messageToAdd ) {
-	var logMessage = {type:"0", message:messageToAdd};
+	var logMessage = {type:"1", message:messageToAdd};
 	addLog(logMessage);
 }
 
 function startWebSocket() {
+	internalLog("Websocket location: localhost:8080/mapview/websocket");
+	internalLog("You can change it in websocket.js if running this application in other context or port.");
+	
 	var mySocket = new WebSocket("ws://localhost:8080/mapview/websocket");
 	
 	mySocket.onopen = function(evt) {
-		mySocket.send("WebSocket Rocks!");
+		//mySocket.send("WebSocket Rocks!");
 	};
 	
 	mySocket.onmessage = function(event) {

@@ -39,8 +39,8 @@
 					<div class="buttons-bar">
 						<img id="btn_reload" class="smallbtn dicas" title="Reload Map" src="img/buttons/32/refresh.png" />		
 						<img id="btn_centermap" class="smallbtn dicas" title="Center Map" src="img/buttons/32/globe.png" />			
-						<img id="btn_play" style="display:none" class="smallbtn dicas" title="Start Map Auto Update" src="img/buttons/32/play.png" />
-						<img id="btn_stop" class="smallbtn dicas" title="Stop Map Auto Update" src="img/buttons/32/stop.png" />
+						<img id="btn_play" style="display:none" class="smallbtn dicas" title="Start Map Update" src="img/buttons/32/play.png" />
+						<img id="btn_stop" class="smallbtn dicas" title="Stop Map Update" src="img/buttons/32/stop.png" />
 						
 						<img class="smallbtn dicas" style="display:none" id="showLogScreen" title="Show Log" src="img/buttons/32/terminal.png" />
 						

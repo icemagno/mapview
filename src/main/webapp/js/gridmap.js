@@ -14,16 +14,6 @@ var toProjection   = new OpenLayers.Projection("EPSG:900913");
 var selectEt;
 
 
-//	========================================================================================================
-//	Update Map every 5 secs. ( if enabled )
-var canAnimateUnits = true;
-var intervalo;
-function animateUnits() {
-	if ( canAnimateUnits ) {
-		loadUnits();
-	}
-}
-
 function updateUnitDisplay( properties ) {
 	var serial = properties.serial;
 	var rumo = properties.bearing;
@@ -38,6 +28,10 @@ function updateUnitDisplay( properties ) {
 
 //	========================================================================================================
 //	AJAX request to load units
+
+// Using websockets now...
+
+/*
 function loadUnits() {
 	var mapbounds = map.getExtent();
 	mapbounds.transform(toProjection, fromProjection );
@@ -72,7 +66,7 @@ function loadUnits() {
 	    
 	});		
 }
-
+*/
 
 
 //	========================================================================================================
@@ -90,7 +84,6 @@ function init(){
 		unitRefreshInterval = data.refreshInterval;
 		logRefreshInterval = data.logRefreshInterval;
 		
-		//intervalo = window.setInterval(animateUnits, unitRefreshInterval);
 		initMap();
 		initLogSystem();
 	});
@@ -120,7 +113,7 @@ function initMap() {
 	
 	bindFeaturesEventHandler();
 	
-	loadUnits();
+	//loadUnits();
 	
 	// Reload map every MOVE / ZOOM / PAN
 	map.events.register("moveend", map, function() {
@@ -171,7 +164,7 @@ function centerMap() {
 
 
 function reload() { 
-	loadUnits();
+	//loadUnits();
 }
 
 
@@ -254,6 +247,8 @@ function bindFeaturesEventHandler() {
 
 function getUnitDetails(e) {
 
+	alert("wewe");
+	
 	var unitAttributes = e.feature.data; 
 	var serial = unitAttributes.serial;
 	var rumo = unitAttributes.bearing;
