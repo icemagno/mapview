@@ -69,10 +69,10 @@ function startWebSocket() {
 	            reason = "Unknown reason";
 
 	        internalLog("The connection was closed for reason: " + reason);
-       };
+    };
 	
 	mySocket.onerror = function(event) {
-		internalLog( "There was an error with your websocket.");	
+		internalLog( "There was an error with your websocket. Dont run this on Tomcat below 8.0.");	
 	};
 	
 }

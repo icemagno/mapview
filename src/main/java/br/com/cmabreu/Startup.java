@@ -29,8 +29,7 @@ public class Startup implements ServletContextListener {
 		scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(ulp, 0, 100 , TimeUnit.MILLISECONDS);		
 		
-		
-		
+        
 		logger.debug("done.");
 	}
 
